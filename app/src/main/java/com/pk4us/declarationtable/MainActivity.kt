@@ -4,25 +4,28 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.main_content.*
+import com.pk4us.declarationtable.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener{
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
+
         init()
     }
 
     private fun init(){
-        var toggle = ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close)
-        drawerLayout.addDrawerListener(toggle)
+        var toggle = ActionBarDrawerToggle(this,binding.drawerLayout,binding.mainContent.toolbar,R.string.open,R.string.close)
+        binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-        navView.setNavigationItemSelectedListener(this)
+        binding.navView.setNavigationItemSelectedListener(this)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -52,7 +55,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                 Toast.makeText(this,"Pressed id_sign_out",Toast.LENGTH_SHORT).show()
             }
         }
-        drawerLayout.closeDrawer(GravityCompat.START)
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 }
