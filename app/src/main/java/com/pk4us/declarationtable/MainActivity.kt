@@ -3,16 +3,24 @@ package com.pk4us.declarationtable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.pk4us.declarationtable.databinding.ActivityMainBinding
-
+import com.pk4us.declarationtable.dialoghelper.DialogConst
+import com.pk4us.declarationtable.dialoghelper.DialogHelper
 
 class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener{
 
+    private lateinit var tvAccount: TextView
+
     private lateinit var binding: ActivityMainBinding
+    private val dialogHelper = DialogHelper(this)
+    val  myAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +34,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         binding.navView.setNavigationItemSelectedListener(this)
+        tvAccount = binding.navView.getHeaderView(0).findViewById(R.id.tvAccountEmail)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -46,10 +55,10 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                 Toast.makeText(this,"Pressed id_bd",Toast.LENGTH_SHORT).show()
             }
             R.id.id_sign_up ->{
-                Toast.makeText(this,"Pressed id_sign_up",Toast.LENGTH_SHORT).show()
+               dialogHelper.createSignDialog(DialogConst.SIGN_UP_STATE)
             }
             R.id.id_sign_in ->{
-                Toast.makeText(this,"Pressed id_sign_in",Toast.LENGTH_SHORT).show()
+                dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
             }
             R.id.id_sign_out ->{
                 Toast.makeText(this,"Pressed id_sign_out",Toast.LENGTH_SHORT).show()
@@ -57,5 +66,9 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    fun uiUpdate(user:FirebaseUser){
+
     }
 }
