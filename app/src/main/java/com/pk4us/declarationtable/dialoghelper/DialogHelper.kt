@@ -1,6 +1,7 @@
 package com.pk4us.declarationtable.dialoghelper
 
 import android.app.AlertDialog
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.pk4us.declarationtable.MainActivity
@@ -31,18 +32,18 @@ class DialogHelper(act: MainActivity) {
 
     private fun setOnClickResetPassword(binding: SignDialogBinding, dialog: AlertDialog?) {
         if (binding.edSignEmail.text.isNotEmpty()) {
-            act.myAuth.sendPasswordResetEmail(binding.edSignEmail.toString())
-                .addOnCompleteListener { task ->
+            act.myAuth.sendPasswordResetEmail(binding.edSignEmail.text.toString()).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(act, R.string.email_reset_password_was_sent, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(act, R.string.email_reset_password, Toast.LENGTH_SHORT).show()
+                        Log.d("MyLog", "Ex: " + task.exception)
                     }
                 }
             dialog?.dismiss()
         } else {
             binding.tvDialogMessage.visibility = View.VISIBLE
             binding.edSignPassword.visibility = View.GONE
-            binding.btSignUpIn.text = "Отправить"
-            binding.btForgetPassword.visibility = View.GONE
+            binding.btForgetPassword.text = "Отпавить на почту"
+            binding.btSignUpIn.visibility = View.GONE
         }
     }
 
