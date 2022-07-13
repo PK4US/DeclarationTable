@@ -17,7 +17,6 @@
     <string name="not_reg">Войдите или зарегестируетесь!</string>
 
     <!--Sign Dialog-->
-
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
     <string name="sign_up">Регистрация</string>
@@ -28,5 +27,6 @@
     <string name="sign_up_error">Не удалось зарегестрироватся</string>
     <string name="send_verification_email_error">Не удалось отправить email для подтверждения!</string>
     <string name="send_verification_email_done">На вашу почту была отпревлена ссылка для подтверждения вашего аккаунта, пожалуйста подтвердите ваш аккаунт!</string>
+    <string name="sign_in_error">Не удалось ввойти!</string>
 
 </resources>

@@ -13,9 +13,22 @@ class AccountHelper(act:MainActivity) {
             act.myAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener{task ->
                 if (task.isSuccessful){
                     sendEmailVerification(task.result?.user!!)
+                    act.uiUpdate(task.result?.user)
                 }else{
                     Toast.makeText(act,act.resources.getString(R.string.sign_up_error), Toast.LENGTH_LONG).show()
                     Log.d("MyLog","Exception : " + task.exception)
+                }
+            }
+        }
+    }
+
+    fun signInWithEmail(email:String,password:String){
+        if (email.isNotEmpty() && password.isNotEmpty()){
+            act.myAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener{task ->
+                if (task.isSuccessful){
+                    act.uiUpdate(task.result?.user)
+                }else{
+                    Toast.makeText(act,act.resources.getString(R.string.sign_in_error), Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -27,7 +40,6 @@ class AccountHelper(act:MainActivity) {
                 Toast.makeText(act,act.resources.getString(R.string.send_verification_email_done), Toast.LENGTH_LONG).show()
             }else{
                 Toast.makeText(act,act.resources.getString(R.string.send_verification_email_error), Toast.LENGTH_LONG).show()
-
             }
         }
     }

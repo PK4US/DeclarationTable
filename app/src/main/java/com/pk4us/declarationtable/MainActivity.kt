@@ -29,6 +29,11 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         init()
     }
 
+    override fun onStart() {
+        super.onStart()
+        uiUpdate(myAuth.currentUser)
+    }
+
     private fun init(){
         var toggle = ActionBarDrawerToggle(this,binding.drawerLayout,binding.mainContent.toolbar,R.string.open,R.string.close)
         binding.drawerLayout.addDrawerListener(toggle)
@@ -61,14 +66,19 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                 dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
             }
             R.id.id_sign_out ->{
-                Toast.makeText(this,"Pressed id_sign_out",Toast.LENGTH_SHORT).show()
+                uiUpdate(null)
+                myAuth.signOut()
             }
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 
-    fun uiUpdate(user:FirebaseUser){
-
+    fun uiUpdate(user:FirebaseUser?){
+        tvAccount.text = if (user==null){
+            resources.getString(R.string.not_reg)
+        }else{
+            user.email
+        }
     }
 }
