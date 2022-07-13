@@ -16,7 +16,6 @@ class AccountHelper(act:MainActivity) {
                     act.uiUpdate(task.result?.user)
                 }else{
                     Toast.makeText(act,act.resources.getString(R.string.sign_up_error), Toast.LENGTH_LONG).show()
-                    Log.d("MyLog","Exception : " + task.exception)
                 }
             }
         }
