@@ -91,20 +91,16 @@ class AccountHelper(act: MainActivity) {
         act.startActivityForResult(intent, GoogleAccConst.GOOGLE_SIGN_IN_REQUEST_CODE)      //_______________________устарела____________________
     }
 
+    fun signOutGoogle(){
+        getSignInClient().signOut()
+    }
+
     fun signInFirebaseWithGoogle(token: String) {
         val credential = GoogleAuthProvider.getCredential(token, null)
         act.myAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(act, "Упешно зарегестировались через Google", Toast.LENGTH_SHORT).show()
                 act.uiUpdate(task.result?.user)
-            }else{
-                Log.d("MyLog", "Google SignIn Exception : " + task.exception)
-//                if (task.exception is FirebaseAuthUserCollisionException) {
-//                    val exception = task.exception as FirebaseAuthUserCollisionException
-//                    if (exception.errorCode == FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE) {
-//                        Toast.makeText(act, "Адрес электронной почты уже используется другим аккаунтом.", Toast.LENGTH_LONG).show()
-//                    }
-//                }
             }
         }
     }

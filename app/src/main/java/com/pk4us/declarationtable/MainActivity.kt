@@ -3,6 +3,7 @@ package com.pk4us.declarationtable
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
@@ -14,6 +15,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.pk4us.declarationtable.act.EditAdsAct
 import com.pk4us.declarationtable.databinding.ActivityMainBinding
 import com.pk4us.declarationtable.dialoghelper.DialogConst
 import com.pk4us.declarationtable.dialoghelper.DialogHelper
@@ -31,6 +33,19 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
         init()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.id_new_ads){
+            val i = Intent(this,EditAdsAct::class.java)
+            startActivity(i)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu,menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -59,6 +74,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     }
 
     private fun init(){
+        setSupportActionBar(binding.mainContent.toolbar)
         var toggle = ActionBarDrawerToggle(this,binding.drawerLayout,binding.mainContent.toolbar,R.string.open,R.string.close)
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -92,6 +108,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             R.id.id_sign_out ->{
                 uiUpdate(null)
                 myAuth.signOut()
+                dialogHelper.accHelper.signOutGoogle()
             }
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
