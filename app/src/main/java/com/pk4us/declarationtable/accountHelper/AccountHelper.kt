@@ -27,7 +27,7 @@ class AccountHelper(act: MainActivity) {
                         if (task.exception is FirebaseAuthUserCollisionException) {
                             val exception = task.exception as FirebaseAuthUserCollisionException
                             if (exception.errorCode == FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE) {
-                                Toast.makeText(act, "Адрес электронной почты уже используется другим аккаунтом.", Toast.LENGTH_LONG).show()
+                                linkEmailToGoogle(email,password)
                             }
                         } else if (task.exception is FirebaseAuthInvalidCredentialsException) {
                             val exception = task.exception as FirebaseAuthInvalidCredentialsException
@@ -41,7 +41,6 @@ class AccountHelper(act: MainActivity) {
                                 Toast.makeText(act, "Пароль должен быть больше 6 символов", Toast.LENGTH_LONG).show()
                             }
                         }
-                        Toast.makeText(act, act.resources.getString(R.string.sign_up_error), Toast.LENGTH_LONG).show()
                     }
                 }
         }
@@ -53,19 +52,16 @@ class AccountHelper(act: MainActivity) {
                 if (task.isSuccessful) {
                     act.uiUpdate(task.result?.user)
                 } else {
-                    Log.d("MyLog", "Exception : " + task.exception)
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         val exception = task.exception as FirebaseAuthInvalidCredentialsException
-                        Log.d("MyLog", "Exception : " + exception.errorCode)
                         if (exception.errorCode == FirebaseAuthConstants.ERROR_WRONG_PASSWORD) {
                             Toast.makeText(act, "Не верный пароль", Toast.LENGTH_LONG).show()
                         }
                         if (exception.errorCode == FirebaseAuthConstants.ERROR_INVALID_EMAIL) {
-                            Toast.makeText(act, "В адрессе почты не должно быть пробелов", Toast.LENGTH_LONG).show()
+                            Toast.makeText(act, "В поле почты не должно быть пробелов", Toast.LENGTH_LONG).show()
                         }
                     } else if (task.exception is FirebaseAuthInvalidUserException) {
                         val exception = task.exception as FirebaseAuthInvalidUserException
-                        Log.d("MyLog", "Exception : " + exception.errorCode)
                         if (exception.errorCode == FirebaseAuthConstants.ERROR_USER_NOT_FOUND) {
                             Toast.makeText(act, "Аккаунта с такой почтой не создано", Toast.LENGTH_LONG).show()
                         }
@@ -73,6 +69,14 @@ class AccountHelper(act: MainActivity) {
                 }
             }
         }
+    }
+
+    private fun linkEmailToGoogle(email: String, password: String) {
+        val credential = EmailAuthProvider.getCredential(email, password)
+        if (act.myAuth.currentUser != null) {
+            act.myAuth.currentUser?.linkWithCredential(credential)?.addOnCompleteListener { task ->
+                if (task.isSuccessful) { Toast.makeText(act, "Email усмешно подключен к Google аккаунту", Toast.LENGTH_LONG).show() } }
+        } else { Toast.makeText(act, "По данной почте уже создан аккаунт через Google", Toast.LENGTH_LONG).show() }
     }
 
     private fun getSignInClient(): GoogleSignInClient {
@@ -91,7 +95,7 @@ class AccountHelper(act: MainActivity) {
         val credential = GoogleAuthProvider.getCredential(token, null)
         act.myAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(act, "Sign In GOOGLE done", Toast.LENGTH_SHORT).show()
+                Toast.makeText(act, "Упешно зарегестировались через Google", Toast.LENGTH_SHORT).show()
                 act.uiUpdate(task.result?.user)
             }else{
                 Log.d("MyLog", "Google SignIn Exception : " + task.exception)
