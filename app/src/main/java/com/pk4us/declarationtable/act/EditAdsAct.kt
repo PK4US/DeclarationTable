@@ -1,24 +1,32 @@
 package com.pk4us.declarationtable.act
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import com.pk4us.declarationtable.R
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.pk4us.declarationtable.databinding.ActivityEditAdsBinding
-import com.pk4us.declarationtable.databinding.ActivityMainBinding
 import com.pk4us.declarationtable.dialogs.DialogSpinnerHelper
 import com.pk4us.declarationtable.utils.CityHelper
 
 class EditAdsAct : AppCompatActivity() {
 
-    private lateinit var binding:ActivityEditAdsBinding
+    lateinit var binding:ActivityEditAdsBinding
+    private val dialog = DialogSpinnerHelper()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditAdsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        init()
+    }
+
+    private fun init(){
+
+    }
+
+    //onClicks
+    fun onClickSelectCountry(view: View){
         val listCountry = CityHelper.getAllCountries(this)
-        val dialog = DialogSpinnerHelper()
         dialog.showSpinnerDialog(this,listCountry)
     }
 }

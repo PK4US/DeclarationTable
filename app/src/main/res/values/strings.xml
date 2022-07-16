@@ -31,5 +31,8 @@
     <string name="send_verification_email_done">На вашу почту была отпревлена ссылка для подтверждения вашего аккаунта, пожалуйста подтвердите ваш аккаунт!</string>
     <string name="sign_in_error">Не удалось ввойти!</string>
 
+    <!--Edit Activity-->
+    <string name="select_country">* Выберете страну</string>
+    <string name="select_city">*Выберете город</string>
 
 </resources>
