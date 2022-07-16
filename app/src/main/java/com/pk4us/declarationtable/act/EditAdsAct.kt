@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter
 import com.pk4us.declarationtable.R
 import com.pk4us.declarationtable.databinding.ActivityEditAdsBinding
 import com.pk4us.declarationtable.databinding.ActivityMainBinding
+import com.pk4us.declarationtable.dialogs.DialogSpinnerHelper
 import com.pk4us.declarationtable.utils.CityHelper
 
 class EditAdsAct : AppCompatActivity() {
@@ -16,8 +17,8 @@ class EditAdsAct : AppCompatActivity() {
         binding = ActivityEditAdsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val adapter = ArrayAdapter(this,android.R.layout.simple_spinner_item,CityHelper.getAllCountries(this))
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spCountry.adapter = adapter
+        val listCountry = CityHelper.getAllCountries(this)
+        val dialog = DialogSpinnerHelper()
+        dialog.showSpinnerDialog(this,listCountry)
     }
 }
