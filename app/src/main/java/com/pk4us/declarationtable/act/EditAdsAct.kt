@@ -13,7 +13,7 @@ import com.pk4us.declarationtable.R
 import com.pk4us.declarationtable.databinding.ActivityEditAdsBinding
 import com.pk4us.declarationtable.dialogs.DialogSpinnerHelper
 import com.pk4us.declarationtable.fragment.FragmentCloseInterface
-import com.pk4us.declarationtable.fragment.ListImageFragment
+import com.pk4us.declarationtable.fragment.ImageListFragment
 import com.pk4us.declarationtable.utils.CityHelper
 import com.pk4us.declarationtable.utils.ImagePicker
 
@@ -37,7 +37,7 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     ImagePicker.getImages(this,3)
                 } else {
-                    Toast.makeText(this, "fgrgre", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Approve permission ti open Pix ImagePecker", Toast.LENGTH_LONG).show()
                 }
                 return
             }
@@ -52,10 +52,13 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
         super.onActivityResult(requestCode, resultCode, data)                             //______________________УСТАРЕЛА_______________
         if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_GET_IMAGES){
             if (data!=null){
-                val returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS) as ArrayList<String>
-                Log.d("MyLog", "Image : " + returnValue[0])
-                Log.d("MyLog", "Image : " + returnValue[1])
-                Log.d("MyLog", "Image : " + returnValue[2])
+                val returnValues = data.getStringArrayListExtra(Pix.IMAGE_RESULTS) as ArrayList<String>
+                if (returnValues.size>1){
+                    binding.scrollViewMain.visibility = View.GONE
+                    val fm = supportFragmentManager.beginTransaction()
+                    fm.replace(R.id.place_holder,ImageListFragment(this,returnValues))
+                    fm.commit()
+                }
             }
         }
     }
@@ -80,10 +83,7 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
     }
 
     fun onClickGetImage(view: View){
-        binding.scrollViewMain.visibility = View.GONE
-        val fm = supportFragmentManager.beginTransaction()
-        fm.replace(R.id.place_holder,ListImageFragment(this))
-        fm.commit()
+        ImagePicker.getImages(this,3)
     }
 
     override fun onFragClose() {
