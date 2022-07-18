@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/conlay"
     android:background="@android:drawable/editbox_background">
 
     <TextView
@@ -27,6 +28,14 @@
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         app:layout_constraintVertical_bias="0.0"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <ImageButton
+        android:id="@+id/imDrag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/conlay"
+        app:layout_constraintTop_toTopOf="@+id/conlay"
+        app:srcCompat="@drawable/ic_drag" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
