@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/place_holder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".act.EditAdsAct">
 
     <ScrollView
+        android:id="@+id/scrollViewMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="1dp"
@@ -17,13 +19,35 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vpImages"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp" />
+                android:layout_margin="5dp">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vpImages"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@android:drawable/editbox_background"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+                </androidx.viewpager2.widget.ViewPager2>
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:onClick="onClickGetImage"
+                    app:layout_constraintEnd_toEndOf="@+id/vpImages"
+                    app:layout_constraintTop_toTopOf="@+id/vpImages"
+                    app:srcCompat="@android:drawable/ic_menu_edit"
+                    tools:ignore="MissingConstraints" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
             <TextView
                 android:id="@+id/tvCounty"
@@ -53,4 +77,4 @@
     </ScrollView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
