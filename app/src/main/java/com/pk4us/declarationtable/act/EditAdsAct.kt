@@ -10,10 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
 import com.pk4us.declarationtable.R
+import com.pk4us.declarationtable.adapters.ImageAdapter
 import com.pk4us.declarationtable.databinding.ActivityEditAdsBinding
 import com.pk4us.declarationtable.dialogs.DialogSpinnerHelper
 import com.pk4us.declarationtable.fragment.FragmentCloseInterface
 import com.pk4us.declarationtable.fragment.ImageListFragment
+import com.pk4us.declarationtable.fragment.SelectImageItem
 import com.pk4us.declarationtable.utils.CityHelper
 import com.pk4us.declarationtable.utils.ImagePicker
 
@@ -21,6 +23,7 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
 
     lateinit var binding: ActivityEditAdsBinding
     private val dialog = DialogSpinnerHelper()
+    private lateinit var imageAdapter:ImageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +48,8 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
     }
 
     private fun init() {
-
+        imageAdapter = ImageAdapter()
+        binding.vpImages.adapter = imageAdapter
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -86,7 +90,8 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
         ImagePicker.getImages(this,3)
     }
 
-    override fun onFragClose() {
+    override fun onFragClose(list: ArrayList<SelectImageItem>) {
         binding.scrollViewMain.visibility = View.VISIBLE
+        imageAdapter.update(list)
     }
 }
