@@ -3,7 +3,6 @@ package com.pk4us.declarationtable.act
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +19,7 @@ import com.pk4us.declarationtable.utils.CityHelper
 import com.pk4us.declarationtable.utils.ImagePicker
 
 class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
-
+    private var chooseImageFragment : ImageListFragment? = null
     lateinit var binding: ActivityEditAdsBinding
     private val dialog = DialogSpinnerHelper()
     private lateinit var imageAdapter:ImageAdapter
@@ -54,14 +53,18 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)                             //______________________УСТАРЕЛА_______________
-        if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_GET_IMAGES){
-            if (data!=null){
-                val returnValues = data.getStringArrayListExtra(Pix.IMAGE_RESULTS) as ArrayList<String>
-                if (returnValues.size>1){
+        if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_GET_IMAGES) {
+            if (data != null) {
+                val returnValues =
+                    data.getStringArrayListExtra(Pix.IMAGE_RESULTS) as ArrayList<String>
+                if (returnValues.size > 1 && chooseImageFragment == null) {
+                    chooseImageFragment = ImageListFragment(this, returnValues)
                     binding.scrollViewMain.visibility = View.GONE
                     val fm = supportFragmentManager.beginTransaction()
-                    fm.replace(R.id.place_holder,ImageListFragment(this,returnValues))
+                    fm.replace(R.id.place_holder, chooseImageFragment!!)
                     fm.commit()
+                } else if (chooseImageFragment != null) {
+                    chooseImageFragment?.updateAdapter(returnValues)
                 }
             }
         }
@@ -93,5 +96,6 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
     override fun onFragClose(list: ArrayList<SelectImageItem>) {
         binding.scrollViewMain.visibility = View.VISIBLE
         imageAdapter.update(list)
+        chooseImageFragment = null
     }
 }
