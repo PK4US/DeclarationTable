@@ -14,7 +14,6 @@ import com.pk4us.declarationtable.databinding.ActivityEditAdsBinding
 import com.pk4us.declarationtable.dialogs.DialogSpinnerHelper
 import com.pk4us.declarationtable.fragment.FragmentCloseInterface
 import com.pk4us.declarationtable.fragment.ImageListFragment
-import com.pk4us.declarationtable.fragment.SelectImageItem
 import com.pk4us.declarationtable.utils.CityHelper
 import com.pk4us.declarationtable.utils.ImagePicker
 
@@ -58,11 +57,7 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
                 val returnValues =
                     data.getStringArrayListExtra(Pix.IMAGE_RESULTS) as ArrayList<String>
                 if (returnValues.size > 1 && chooseImageFragment == null) {
-                    chooseImageFragment = ImageListFragment(this, returnValues)
-                    binding.scrollViewMain.visibility = View.GONE
-                    val fm = supportFragmentManager.beginTransaction()
-                    fm.replace(R.id.place_holder, chooseImageFragment!!)
-                    fm.commit()
+                    openChooseImageFragment(returnValues)
                 } else if (chooseImageFragment != null) {
                     chooseImageFragment?.updateAdapter(returnValues)
                 }
@@ -90,12 +85,24 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
     }
 
     fun onClickGetImage(view: View){
-        ImagePicker.getImages(this,3)
+        if (imageAdapter.mainArray.size == 0){
+            ImagePicker.getImages(this,3)
+        } else{
+            openChooseImageFragment(imageAdapter.mainArray)
+        }
     }
 
-    override fun onFragClose(list: ArrayList<SelectImageItem>) {
+    override fun onFragClose(list: ArrayList<String>) {
         binding.scrollViewMain.visibility = View.VISIBLE
         imageAdapter.update(list)
         chooseImageFragment = null
+    }
+
+    private fun openChooseImageFragment(newList:ArrayList<String>){
+        chooseImageFragment = ImageListFragment(this, newList)
+        binding.scrollViewMain.visibility = View.GONE
+        val fm = supportFragmentManager.beginTransaction()
+        fm.replace(R.id.place_holder, chooseImageFragment!!)
+        fm.commit()
     }
 }
