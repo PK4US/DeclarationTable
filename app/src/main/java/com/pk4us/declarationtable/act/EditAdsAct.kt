@@ -22,6 +22,7 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
     lateinit var binding: ActivityEditAdsBinding
     private val dialog = DialogSpinnerHelper()
     private lateinit var imageAdapter:ImageAdapter
+    var editImagePosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +37,7 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
         when (requestCode) {
             PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    ImagePicker.getImages(this,3)
+                    ImagePicker.getImages(this,3,ImagePicker.REQUEST_CODE_GET_SINGLE_IMAGES )
                 } else {
                     Toast.makeText(this, "Approve permission ti open Pix ImagePecker", Toast.LENGTH_LONG).show()
                 }
@@ -54,13 +55,17 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
         super.onActivityResult(requestCode, resultCode, data)                             //______________________УСТАРЕЛА_______________
         if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_GET_IMAGES) {
             if (data != null) {
-                val returnValues =
-                    data.getStringArrayListExtra(Pix.IMAGE_RESULTS) as ArrayList<String>
+                val returnValues = data.getStringArrayListExtra(Pix.IMAGE_RESULTS) as ArrayList<String>
                 if (returnValues.size > 1 && chooseImageFragment == null) {
                     openChooseImageFragment(returnValues)
                 } else if (chooseImageFragment != null) {
                     chooseImageFragment?.updateAdapter(returnValues)
                 }
+            }
+        }else if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_GET_SINGLE_IMAGES){
+            if (data != null) {
+                val uris = data.getStringArrayListExtra(Pix.IMAGE_RESULTS) as ArrayList<String>
+                chooseImageFragment?.setSingleImage(uris[0],editImagePosition)
             }
         }
     }
@@ -86,7 +91,7 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
 
     fun onClickGetImage(view: View){
         if (imageAdapter.mainArray.size == 0){
-            ImagePicker.getImages(this,3)
+            ImagePicker.getImages(this,3,ImagePicker.REQUEST_CODE_GET_SINGLE_IMAGES)
         } else{
             openChooseImageFragment(imageAdapter.mainArray)
         }
