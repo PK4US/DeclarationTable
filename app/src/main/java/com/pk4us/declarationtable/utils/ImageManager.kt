@@ -3,6 +3,9 @@ package com.pk4us.declarationtable.utils
 import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.exifinterface.media.ExifInterface
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import java.io.File
 
 object ImageManager {
@@ -30,12 +33,11 @@ object ImageManager {
         return rotation
     }
 
-    fun imageResize(uris:List<String>){
+    suspend fun imageResize(uris:List<String>):String = withContext(Dispatchers.IO){
         val tempList = ArrayList<List<Int>>()
         for (n in uris.indices){
             val size = getImageSize(uris[n])
-            Log.d("MyLog", "WIDTH: " + size[WIDTH])
-            Log.d("MyLog", "HEIGHT: " + size[HEIGHT])
+
             val imageRatio = size[WIDTH].toFloat() / size[HEIGHT].toFloat()
 
             if (imageRatio>1){
@@ -53,9 +55,8 @@ object ImageManager {
 
                 }
             }
-            Log.d("MyLog", "WIDTH: " + tempList[n][WIDTH])
-            Log.d("MyLog", "HEIGHT: " + tempList[n][HEIGHT])
         }
-
+        delay(10000)
+        return@withContext "Done"
     }
 }

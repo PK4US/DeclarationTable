@@ -16,11 +16,16 @@ import com.pk4us.declarationtable.databinding.ListImageFragmentBinding
 import com.pk4us.declarationtable.utils.ImageManager
 import com.pk4us.declarationtable.utils.ImagePicker
 import com.pk4us.declarationtable.utils.ItemTouchMoveCallback
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class ImageListFragment(private val fragmentCloseInterface:FragmentCloseInterface,private val newList:ArrayList<String>): Fragment() {
     val adapter = SelectImageRvAdapter()
     val dragCallback = ItemTouchMoveCallback(adapter)
     val touchHelper = ItemTouchHelper(dragCallback)
+    private lateinit var job: Job
     lateinit var binding: ListImageFragmentBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -34,7 +39,11 @@ class ImageListFragment(private val fragmentCloseInterface:FragmentCloseInterfac
         touchHelper.attachToRecyclerView(binding.rcViewSelectImage)
         binding.rcViewSelectImage.layoutManager = LinearLayoutManager(activity)
         binding.rcViewSelectImage.adapter =  adapter
-        ImageManager.imageResize(newList)
+        job = CoroutineScope(Dispatchers.Main).launch {
+            val text = ImageManager.imageResize(newList)
+            Log.d("MyLog", "Result: $text")
+        }
+
 //        adapter.updateAdapter(newList,true)
 
     }
@@ -42,7 +51,7 @@ class ImageListFragment(private val fragmentCloseInterface:FragmentCloseInterfac
     override fun onDetach() {
         super.onDetach()
         fragmentCloseInterface.onFragClose(adapter.mainArray)
-
+        job.cancel()
     }
 
     private fun setUpToolbar(){
