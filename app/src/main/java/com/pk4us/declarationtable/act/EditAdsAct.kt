@@ -2,6 +2,7 @@ package com.pk4us.declarationtable.act
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -100,17 +101,18 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
         if (imageAdapter.mainArray.size == 0){
             ImagePicker.getImages(this,3,ImagePicker.REQUEST_CODE_GET_IMAGES)
         } else{
-            openChooseImageFragment(imageAdapter.mainArray)
+            openChooseImageFragment(null)
+            chooseImageFragment?.updateAdapterFromEdit(imageAdapter.mainArray)
         }
     }
 
-    override fun onFragClose(list: ArrayList<String>) {
+    override fun onFragClose(list: ArrayList<Bitmap>) {
         binding.scrollViewMain.visibility = View.VISIBLE
         imageAdapter.update(list)
         chooseImageFragment = null
     }
 
-    private fun openChooseImageFragment(newList:ArrayList<String>){
+    private fun openChooseImageFragment(newList:ArrayList<String>?){
         chooseImageFragment = ImageListFragment(this, newList)
         binding.scrollViewMain.visibility = View.GONE
         val fm = supportFragmentManager.beginTransaction()

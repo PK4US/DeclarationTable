@@ -1,6 +1,7 @@
 package com.pk4us.declarationtable.fragment
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +16,7 @@ import com.pk4us.declarationtable.utils.ImagePicker
 import com.pk4us.declarationtable.utils.ItemTouchMoveCallback
 
 class SelectImageRvAdapter: RecyclerView.Adapter<SelectImageRvAdapter.ImageHolder>(),ItemTouchMoveCallback.ItemTouchAdapter{
-    val mainArray = ArrayList<String>()
+    val mainArray = ArrayList<Bitmap>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectImageRvAdapter.ImageHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.select_image_fragment_item,parent,false)
         return ImageHolder(view,parent.context, this)
@@ -47,7 +48,7 @@ class SelectImageRvAdapter: RecyclerView.Adapter<SelectImageRvAdapter.ImageHolde
         lateinit var imEditImage:ImageButton
         lateinit var imDeleteImage:ImageButton
 
-        fun setData(item:String){
+        fun setData(bitmap:Bitmap){
             tvTitle = itemView.findViewById(R.id.tvTitle)
             image = itemView.findViewById(R.id.imageContent)
             imEditImage = itemView.findViewById(R.id.imEditImage)
@@ -65,11 +66,11 @@ class SelectImageRvAdapter: RecyclerView.Adapter<SelectImageRvAdapter.ImageHolde
                 context.editImagePosition = adapterPosition
             }
             tvTitle.text = context.resources.getStringArray(R.array.title_array)[adapterPosition]
-            image.setImageURI(Uri.parse(item))
+            image.setImageBitmap(bitmap)
         }
     }
 
-    fun updateAdapter(newList: List<String>,needClear:Boolean){
+    fun updateAdapter(newList: List<Bitmap>,needClear:Boolean){
         if (needClear)mainArray.clear()
         mainArray.addAll(newList)
         notifyDataSetChanged()
