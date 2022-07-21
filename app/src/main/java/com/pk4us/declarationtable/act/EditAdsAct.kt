@@ -3,6 +3,7 @@ package com.pk4us.declarationtable.act
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import com.pk4us.declarationtable.dialogs.DialogSpinnerHelper
 import com.pk4us.declarationtable.fragment.FragmentCloseInterface
 import com.pk4us.declarationtable.fragment.ImageListFragment
 import com.pk4us.declarationtable.utils.CityHelper
+import com.pk4us.declarationtable.utils.ImageManager
 import com.pk4us.declarationtable.utils.ImagePicker
 
 class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
@@ -59,7 +61,10 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
                 if (returnValues.size > 1 && chooseImageFragment == null) {
                     openChooseImageFragment(returnValues)
                 } else if (returnValues.size == 1 && chooseImageFragment == null) {
-                    imageAdapter.update(returnValues)
+//                    imageAdapter.update(returnValues)
+                    val tempList = ImageManager.getImageSize(returnValues[0])
+                    Log.d("MyLog", "WIDTH:" + tempList[0])
+                    Log.d("MyLog", "HEIGHT:" + tempList[1])
                 }else if (chooseImageFragment != null) {
                     chooseImageFragment?.updateAdapter(returnValues)
                 }
