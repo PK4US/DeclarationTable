@@ -46,6 +46,34 @@
                     app:srcCompat="@android:drawable/ic_menu_edit"
                     tools:ignore="MissingConstraints" />
 
+
+<!--                <ImageButton-->
+<!--                    android:id="@+id/imageButton"-->
+<!--                    android:layout_width="150dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    android:onClick="onClickGetImage"-->
+<!--                    android:scaleType="fitCenter"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/vpImages"-->
+<!--                    app:layout_constraintEnd_toEndOf="@+id/vpImages"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/vpImages"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/vpImages"-->
+<!--                    app:srcCompat="@drawable/ic_add_photo"-->
+<!--                    tools:ignore="MissingConstraints" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/textView2"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Добавить фото"-->
+<!--                    android:textColor="@color/green_main"-->
+<!--                    android:textSize="24sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/vpImages"-->
+<!--                    app:layout_constraintEnd_toEndOf="@+id/imageButton"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/imageButton"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/imageButton"-->
+<!--                    app:layout_constraintVertical_bias="0.0" />-->
+
                 <ProgressBar
                     android:id="@+id/pBarLoad"
                     style="?android:attr/progressBarStyle"
