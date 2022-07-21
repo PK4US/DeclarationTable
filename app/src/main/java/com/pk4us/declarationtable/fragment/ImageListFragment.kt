@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pk4us.declarationtable.R
 import com.pk4us.declarationtable.databinding.ListImageFragmentBinding
+import com.pk4us.declarationtable.utils.ImageManager
 import com.pk4us.declarationtable.utils.ImagePicker
 import com.pk4us.declarationtable.utils.ItemTouchMoveCallback
 
@@ -33,7 +34,8 @@ class ImageListFragment(private val fragmentCloseInterface:FragmentCloseInterfac
         touchHelper.attachToRecyclerView(binding.rcViewSelectImage)
         binding.rcViewSelectImage.layoutManager = LinearLayoutManager(activity)
         binding.rcViewSelectImage.adapter =  adapter
-        adapter.updateAdapter(newList,true)
+        ImageManager.imageResize(newList)
+//        adapter.updateAdapter(newList,true)
 
     }
 
