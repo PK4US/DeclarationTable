@@ -16,23 +16,26 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.pk4us.declarationtable.act.EditAdsAct
+import com.pk4us.declarationtable.database.DbManager
 import com.pk4us.declarationtable.databinding.ActivityMainBinding
 import com.pk4us.declarationtable.dialoghelper.DialogConst
 import com.pk4us.declarationtable.dialoghelper.DialogHelper
 import com.pk4us.declarationtable.dialoghelper.GoogleAccConst
 
-class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener{
+class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener{
 
     private lateinit var tvAccount: TextView
     private lateinit var binding: ActivityMainBinding
     private val dialogHelper = DialogHelper(this)
     val  myAuth = FirebaseAuth.getInstance()
+    val dbManager = DbManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
         init()
+        dbManager.readDataFromDb()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
