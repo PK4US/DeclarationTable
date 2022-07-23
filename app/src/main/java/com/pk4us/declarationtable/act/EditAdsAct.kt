@@ -12,6 +12,7 @@ import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
 import com.pk4us.declarationtable.R
 import com.pk4us.declarationtable.adapters.ImageAdapter
+import com.pk4us.declarationtable.database.DbManager
 import com.pk4us.declarationtable.databinding.ActivityEditAdsBinding
 import com.pk4us.declarationtable.dialogs.DialogSpinnerHelper
 import com.pk4us.declarationtable.fragment.FragmentCloseInterface
@@ -91,6 +92,11 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
             openChooseImageFragment(null)
             chooseImageFragment?.updateAdapterFromEdit(imageAdapter.mainArray)
         }
+    }
+
+    fun onClickPublish(view: View){
+        val dbManager = DbManager()
+        dbManager.publishAd()
     }
 
     override fun onFragClose(list: ArrayList<Bitmap>) {

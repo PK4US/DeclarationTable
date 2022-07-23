@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "850378330934",
+    "firebase_url": "https://declarationtable-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "declarationtable",
     "storage_bucket": "declarationtable.appspot.com"
   },
