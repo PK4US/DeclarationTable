@@ -5,6 +5,7 @@
     android:id="@+id/place_holder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dark_grey"
     tools:context=".act.EditAdsAct">
 
     <ScrollView
@@ -17,101 +18,236 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="5dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp">
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/vpImages"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:padding="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </androidx.viewpager2.widget.ViewPager2>
+
+                    <ImageButton
+                        android:id="@+id/imageButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/edit_image_button"
+                        android:onClick="onClickGetImage"
+                        android:padding="5dp"
+                        app:layout_constraintEnd_toEndOf="@+id/vpImages"
+                        app:layout_constraintTop_toTopOf="@+id/vpImages"
+                        app:srcCompat="@drawable/ic_edit"
+                        tools:ignore="MissingConstraints" />
+
+
+                    <!--                <ImageButton-->
+                    <!--                    android:id="@+id/imageButton"-->
+                    <!--                    android:layout_width="150dp"-->
+                    <!--                    android:layout_height="100dp"-->
+                    <!--                    android:background="@android:color/transparent"-->
+                    <!--                    android:onClick="onClickGetImage"-->
+                    <!--                    android:scaleType="fitCenter"-->
+                    <!--                    app:layout_constraintBottom_toBottomOf="@+id/vpImages"-->
+                    <!--                    app:layout_constraintEnd_toEndOf="@+id/vpImages"-->
+                    <!--                    app:layout_constraintStart_toStartOf="@+id/vpImages"-->
+                    <!--                    app:layout_constraintTop_toTopOf="@+id/vpImages"-->
+                    <!--                    app:srcCompat="@drawable/ic_add_photo"-->
+                    <!--                    tools:ignore="MissingConstraints" />-->
+
+                    <!--                <TextView-->
+                    <!--                    android:id="@+id/textView2"-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:text="Добавить фото"-->
+                    <!--                    android:textColor="@color/green_main"-->
+                    <!--                    android:textSize="24sp"-->
+                    <!--                    app:layout_constraintBottom_toBottomOf="@+id/vpImages"-->
+                    <!--                    app:layout_constraintEnd_toEndOf="@+id/imageButton"-->
+                    <!--                    app:layout_constraintStart_toStartOf="@+id/imageButton"-->
+                    <!--                    app:layout_constraintTop_toBottomOf="@+id/imageButton"-->
+                    <!--                    app:layout_constraintVertical_bias="0.0" />-->
+
+                    <ProgressBar
+                        android:id="@+id/pBarLoad"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/vpImages"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp">
+                android:layout_marginTop="5dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="5dp">
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/vpImages"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@android:drawable/editbox_background"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                </androidx.viewpager2.widget.ViewPager2>
+                    <TextView
+                        android:id="@+id/tvTitleCountry"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/country"
+                        android:textColor="@color/green_main"
+                        android:textStyle="bold" />
 
-                <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:onClick="onClickGetImage"
-                    app:layout_constraintEnd_toEndOf="@+id/vpImages"
-                    app:layout_constraintTop_toTopOf="@+id/vpImages"
-                    app:srcCompat="@android:drawable/ic_menu_edit"
-                    tools:ignore="MissingConstraints" />
+                    <TextView
+                        android:id="@+id/tvCounty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="onClickSelectCountry"
+                        android:padding="10dp"
+                        android:text="@string/select_country"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
+                    <LinearLayout
+                        android:id="@+id/divider1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:background="@color/green_main"
+                        android:orientation="horizontal">
 
-<!--                <ImageButton-->
-<!--                    android:id="@+id/imageButton"-->
-<!--                    android:layout_width="150dp"-->
-<!--                    android:layout_height="100dp"-->
-<!--                    android:background="@android:color/transparent"-->
-<!--                    android:onClick="onClickGetImage"-->
-<!--                    android:scaleType="fitCenter"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@+id/vpImages"-->
-<!--                    app:layout_constraintEnd_toEndOf="@+id/vpImages"-->
-<!--                    app:layout_constraintStart_toStartOf="@+id/vpImages"-->
-<!--                    app:layout_constraintTop_toTopOf="@+id/vpImages"-->
-<!--                    app:srcCompat="@drawable/ic_add_photo"-->
-<!--                    tools:ignore="MissingConstraints" />-->
+                    </LinearLayout>
 
-<!--                <TextView-->
-<!--                    android:id="@+id/textView2"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Добавить фото"-->
-<!--                    android:textColor="@color/green_main"-->
-<!--                    android:textSize="24sp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@+id/vpImages"-->
-<!--                    app:layout_constraintEnd_toEndOf="@+id/imageButton"-->
-<!--                    app:layout_constraintStart_toStartOf="@+id/imageButton"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/imageButton"-->
-<!--                    app:layout_constraintVertical_bias="0.0" />-->
+                    <TextView
+                        android:id="@+id/tvTitleCountry2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/city"
+                        android:textColor="@color/green_main"
+                        android:textStyle="bold" />
 
-                <ProgressBar
-                    android:id="@+id/pBarLoad"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@+id/vpImages"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:visibility="gone"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/tvCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="onClickSelectCity"
+                        android:padding="10dp"
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:text="@string/select_city"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
+                    <LinearLayout
+                        android:id="@+id/divider2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:background="@color/green_main"
+                        android:orientation="horizontal">
 
+                    </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvCounty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@android:drawable/editbox_background_normal"
-                android:gravity="center"
-                android:onClick="onClickSelectCountry"
-                android:padding="10dp"
-                android:text="@string/select_country"
-                android:textColor="@color/black" />
+                    <TextView
+                        android:id="@+id/tvTitleTel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/tel"
+                        android:textColor="@color/green_main"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvCity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@android:drawable/editbox_background_normal"
-                android:gravity="center"
-                android:onClick="onClickSelectCity"
-                android:padding="10dp"
-                android:text="@string/select_city"
-                android:textColor="@color/black" />
+                    <EditText
+                        android:id="@+id/etTel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:ems="10"
+                        android:hint="@string/tel_number"
+                        android:inputType="phone"
+                        android:padding="10dp"
+                        android:textColorHint="@color/dark_grey"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:id="@+id/divider3"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:background="@color/green_main"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvTitleIndex"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/index"
+                        android:textColor="@color/green_main"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etIndex"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:ems="10"
+                        android:hint="@string/index"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:textColorHint="@color/dark_grey"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:id="@+id/divider4"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/green_main"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
     </ScrollView>
