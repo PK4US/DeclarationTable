@@ -4,21 +4,19 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
 import com.pk4us.declarationtable.R
 import com.pk4us.declarationtable.adapters.ImageAdapter
+import com.pk4us.declarationtable.data.Ad
 import com.pk4us.declarationtable.database.DbManager
 import com.pk4us.declarationtable.databinding.ActivityEditAdsBinding
 import com.pk4us.declarationtable.dialogs.DialogSpinnerHelper
 import com.pk4us.declarationtable.fragment.FragmentCloseInterface
 import com.pk4us.declarationtable.fragment.ImageListFragment
 import com.pk4us.declarationtable.utils.CityHelper
-import com.pk4us.declarationtable.utils.ImageManager
 import com.pk4us.declarationtable.utils.ImagePicker
 
 class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
@@ -27,6 +25,8 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
     private val dialog = DialogSpinnerHelper()
     lateinit var imageAdapter:ImageAdapter
     var editImagePosition = 0
+    val dbManager = DbManager()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,8 +95,24 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
     }
 
     fun onClickPublish(view: View){
-        val dbManager = DbManager()
-        dbManager.publishAd()
+        dbManager.publishAd(fillAd())
+    }
+
+    private fun fillAd():Ad{
+        val ad:Ad
+        binding.apply {
+            ad = Ad(
+                tvCounty.text.toString(),
+                tvCity.text.toString(),
+                editTel.text.toString(),
+                editIndex.text.toString(),
+                checkBoxWithSend.isChecked.toString(),
+                tvCategory.text.toString(),
+                etPrice.text.toString(),
+                etDescription.text.toString(),
+                dbManager.db.push().key)
+        }
+        return ad
     }
 
     override fun onFragClose(list: ArrayList<Bitmap>) {
