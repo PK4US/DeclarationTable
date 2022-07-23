@@ -28,18 +28,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class ImageListFragment(private val fragmentCloseInterface:FragmentCloseInterface,private val newList:ArrayList<String>?): Fragment(),AdapterCallback {
+class ImageListFragment(private val fragmentCloseInterface:FragmentCloseInterface,private val newList:ArrayList<String>?): BaseSelectImageFragment(),AdapterCallback {
     val adapter = SelectImageRvAdapter(this)
     val dragCallback = ItemTouchMoveCallback(adapter)
     val touchHelper = ItemTouchHelper(dragCallback)
     private var job: Job? = null
-    lateinit var binding: ListImageFragmentBinding
     private var addImageItem:MenuItem? = null
 
-        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = ListImageFragmentBinding.inflate(inflater)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -80,7 +75,7 @@ class ImageListFragment(private val fragmentCloseInterface:FragmentCloseInterfac
         addImageItem = binding.tb.menu.findItem(R.id.id_add_image)
 
         binding.tb.setNavigationOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+            activity?.supportFragmentManager?.beginTransaction()?.remove(this@ImageListFragment)?.commit()
         }
 
         deleteImageItem.setOnMenuItemClickListener {
