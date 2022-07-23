@@ -39,7 +39,18 @@
     <string name="city">Город</string>
     <string name="country">Страна</string>
     <string name="index">Индекс</string>
+    <string name="index_hint">*Индекс</string>
     <string name="tel">Телефон</string>
-    <string name="tel_number">Номер телефона</string>
+    <string name="tel_number">*Номер телефона</string>
+    <string name="send">Отправка</string>
+    <string name="with_send">С отправкой почтой?</string>
+
+    <string name="category">Категоря</string>
+    <string name="select_category">*Выберете категорию</string>
+    <string name="price">Цена</string>
+    <string name="price_hint">*Укажите цену</string>
+    <string name="description">Описание</string>
+    <string name="description_hint">Опишите товар</string>
+    <string name="publish">Опубликовать</string>
 
 </resources>
