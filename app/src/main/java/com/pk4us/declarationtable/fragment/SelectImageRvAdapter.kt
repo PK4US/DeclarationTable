@@ -24,7 +24,7 @@ class SelectImageRvAdapter(val adapterCallback:AdapterCallback): RecyclerView.Ad
         return ImageHolder(viewBinding,parent.context, this)
     }
 
-    override fun onBindViewHolder(holder: SelectImageRvAdapter.ImageHolder, position: Int) {
+    override fun onBindViewHolder(holder: ImageHolder, position: Int) {
         holder.setData(mainArray[position])
     }
 
@@ -51,9 +51,10 @@ class SelectImageRvAdapter(val adapterCallback:AdapterCallback): RecyclerView.Ad
     class ImageHolder(private val viewBinding:SelectImageFragmentItemBinding, val context: Context, val adapter: SelectImageRvAdapter): RecyclerView.ViewHolder(viewBinding.root) {
         fun setData(bitmap:Bitmap){
             viewBinding.imEditImage.setOnClickListener {
-                ImagePicker.getImages(context as EditAdsAct,1,ImagePicker.REQUEST_CODE_GET_SINGLE_IMAGES)
+                ImagePicker.launcher(context as EditAdsAct,context.launcherSingleSelectImage,1)
                 context.editImagePosition = adapterPosition
             }
+
             viewBinding.imDeleteImage.setOnClickListener {
                 adapter.mainArray.removeAt(adapterPosition)
                 adapter.notifyItemRemoved(adapterPosition)

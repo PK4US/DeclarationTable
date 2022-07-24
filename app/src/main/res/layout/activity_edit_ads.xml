@@ -52,7 +52,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:background="@drawable/edit_image_button"
-                        android:onClick="onClickGetImage"
+                        android:onClick="onClickGetImages"
                         android:padding="5dp"
                         app:layout_constraintEnd_toEndOf="@+id/vpImages"
                         app:layout_constraintTop_toTopOf="@+id/vpImages"

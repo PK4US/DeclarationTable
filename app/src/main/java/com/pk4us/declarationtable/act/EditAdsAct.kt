@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import com.fxn.utility.PermUtil
 import com.pk4us.declarationtable.R
@@ -26,6 +27,8 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
     lateinit var imageAdapter:ImageAdapter
     var editImagePosition = 0
     val dbManager = DbManager(null  )
+    var launcherMultiSelectImage:ActivityResultLauncher<Intent>? = null
+    var launcherSingleSelectImage:ActivityResultLauncher<Intent>? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +44,7 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
         when (requestCode) {
             PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    ImagePicker.getImages(this,3,ImagePicker.REQUEST_CODE_GET_IMAGES )
+                   // ImagePicker.getImages(this,3,ImagePicker.REQUEST_CODE_GET_IMAGES )
                 } else {
                     Toast.makeText(this, "Approve permission ti open Pix ImagePecker", Toast.LENGTH_LONG).show()
                 }
@@ -53,11 +56,9 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
     private fun init() {
         imageAdapter = ImageAdapter()
         binding.vpImages.adapter = imageAdapter
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)                             //______________________УСТАРЕЛА_______________
-        ImagePicker.showSelectedImages(resultCode,requestCode,data,this)
+        launcherMultiSelectImage = ImagePicker.getLauncherForMultiSelectImages(this)
+        launcherSingleSelectImage = ImagePicker.getLauncherForSingleImage(this)
     }
 
     //onClicks
@@ -85,9 +86,9 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
 
     }
 
-    fun onClickGetImage(view: View){
+    fun onClickGetImages(view: View){
         if (imageAdapter.mainArray.size == 0){
-            ImagePicker.getImages(this,3,ImagePicker.REQUEST_CODE_GET_IMAGES)
+            ImagePicker.launcher(this,launcherMultiSelectImage,3)
         } else{
             openChooseImageFragment(null)
             chooseImageFragment?.updateAdapterFromEdit(imageAdapter.mainArray)
