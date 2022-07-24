@@ -168,10 +168,12 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/editPanel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:gravity="end"
+                    android:visibility="visible"
                     android:orientation="horizontal">
 
                     <ImageButton

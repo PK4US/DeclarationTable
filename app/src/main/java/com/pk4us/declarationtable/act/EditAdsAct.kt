@@ -112,7 +112,8 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
                 tvCategory.text.toString(),
                 etPrice.text.toString(),
                 etDescription.text.toString(),
-                dbManager.db.push().key)
+                dbManager.db.push().key,
+                dbManager.auth.uid)
         }
         return ad
     }

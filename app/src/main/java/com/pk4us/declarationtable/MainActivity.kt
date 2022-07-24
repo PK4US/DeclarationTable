@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -15,8 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.pk4us.declarationtable.act.EditAdsAct
 import com.pk4us.declarationtable.adapters.AdsRcAdapter
 import com.pk4us.declarationtable.data.Ad
@@ -32,9 +32,9 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
     private lateinit var tvAccount: TextView
     private lateinit var binding: ActivityMainBinding
     private val dialogHelper = DialogHelper(this)
-    val  myAuth = FirebaseAuth.getInstance()
+    val  myAuth = Firebase.auth
     val dbManager = DbManager(this)
-    val adapter = AdsRcAdapter()
+    val adapter = AdsRcAdapter(myAuth)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
