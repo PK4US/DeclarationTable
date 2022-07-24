@@ -34,7 +34,7 @@
     <string name="sign_in_error">Не удалось ввойти!</string>
 
     <!--Edit Activity-->
-    <string name="select_country">* Выберете страну</string>
+    <string name="select_country">*Выберете страну</string>
     <string name="select_city">*Выберете город</string>
     <string name="city">Город</string>
     <string name="country">Страна</string>
@@ -54,5 +54,8 @@
     <string name="publish">Опубликовать</string>
     <string name="title">Заголовок</string>
     <string name="title_hint">*Напишите название товара</string>
+
+    <!--add list item-->
+    <string name="price_desc">Цена:</string>
 
 </resources>
