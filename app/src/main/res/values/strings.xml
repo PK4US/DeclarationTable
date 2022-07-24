@@ -52,5 +52,7 @@
     <string name="description">Описание</string>
     <string name="description_hint">Опишите товар</string>
     <string name="publish">Опубликовать</string>
+    <string name="title">Заголовок</string>
+    <string name="title_hint">*Напишите название товара</string>
 
 </resources>
