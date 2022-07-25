@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="New Add"
+        android:id="@+id/id_new_ad"
+        android:icon="@drawable/ic_new_ad"
+        android:orderInCategory="400"/>
+
+    <item
+        android:title="My ads"
+        android:id="@+id/id_my_ads"
+        android:icon="@drawable/ic_my_ads"
+        android:orderInCategory="300"/>
+
+    <item
+        android:title="Favs"
+        android:id="@+id/id_favs"
+        android:icon="@drawable/ic_fav_norm"
+        android:orderInCategory="200"/>
+
+    <item
+        android:title="Home"
+        android:id="@+id/id_home"
+        android:icon="@drawable/ic_home"
+        android:orderInCategory="100"/>
+
+</menu>

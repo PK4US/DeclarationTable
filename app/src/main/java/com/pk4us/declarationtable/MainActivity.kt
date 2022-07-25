@@ -43,19 +43,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
         init()
         initViewModel()
         firebaseViewModel.loadAllAds()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.id_new_ads){
-            val i = Intent(this,EditAdsAct::class.java)
-            startActivity(i)
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu,menu)
-        return super.onCreateOptionsMenu(menu)
+        bottomMenuOnClick()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -94,6 +82,34 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
         toggle.syncState()
         binding.navView.setNavigationItemSelectedListener(this)
         tvAccount = binding.navView.getHeaderView(0).findViewById(R.id.tvAccountEmail)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.mainContent.bNavView.selectedItemId = R.id.id_home
+    }
+
+    private fun bottomMenuOnClick() = with(binding){
+        mainContent.bNavView.setOnNavigationItemSelectedListener { item ->
+            when(item.itemId){
+                R.id.id_home ->{
+                    Toast.makeText(this@MainActivity,"Pressed id_home",Toast.LENGTH_SHORT).show()
+
+                }
+                R.id.id_favs ->{
+                    Toast.makeText(this@MainActivity,"Pressed id_favs",Toast.LENGTH_SHORT).show()
+                }
+                R.id.id_my_ads ->{
+                    Toast.makeText(this@MainActivity,"Pressed id_my_ads",Toast.LENGTH_SHORT).show()
+
+                }
+                R.id.id_new_ad ->{ val i = Intent(
+                    this@MainActivity,EditAdsAct::class.java)
+                    startActivity(i)}
+            }
+            true
+        }
+
     }
 
     private fun initRecyclerView(){
