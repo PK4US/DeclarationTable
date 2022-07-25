@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.fxn.utility.PermUtil
 import com.pk4us.declarationtable.R
 import com.pk4us.declarationtable.adapters.ImageAdapter
-import com.pk4us.declarationtable.data.Ad
-import com.pk4us.declarationtable.database.DbManager
+import com.pk4us.declarationtable.model.Ad
+import com.pk4us.declarationtable.model.DbManager
 import com.pk4us.declarationtable.databinding.ActivityEditAdsBinding
 import com.pk4us.declarationtable.dialogs.DialogSpinnerHelper
 import com.pk4us.declarationtable.fragment.FragmentCloseInterface
@@ -26,7 +26,7 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
     private val dialog = DialogSpinnerHelper()
     lateinit var imageAdapter:ImageAdapter
     var editImagePosition = 0
-    val dbManager = DbManager(null  )
+    val dbManager = DbManager()
     var launcherMultiSelectImage:ActivityResultLauncher<Intent>? = null
     var launcherSingleSelectImage:ActivityResultLauncher<Intent>? = null
 

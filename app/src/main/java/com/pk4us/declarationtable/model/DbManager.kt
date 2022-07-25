@@ -1,15 +1,13 @@
-package com.pk4us.declarationtable.database
+package com.pk4us.declarationtable.model
 
-import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.pk4us.declarationtable.data.Ad
 
-class DbManager(val readDataCallback: ReadDataCallback?) {
+class DbManager {
     val db = Firebase.database.getReference("main")
     val auth = Firebase.auth
 
@@ -17,7 +15,7 @@ class DbManager(val readDataCallback: ReadDataCallback?) {
         if (auth.uid!=null)db.child(ad.key?:"empty").child(auth.uid!!).child("ad").setValue(ad)
     }
 
-    fun readDataFromDb(){
+    fun readDataFromDb(readDataCallback: ReadDataCallback?){
         db.addListenerForSingleValueEvent(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val adArray = ArrayList<Ad>()
@@ -27,8 +25,11 @@ class DbManager(val readDataCallback: ReadDataCallback?) {
                 }
                 readDataCallback?.readData(adArray)
             }
-
             override fun onCancelled(error: DatabaseError) {}
         })
+    }
+
+    interface ReadDataCallback {
+        fun readData(list:ArrayList<Ad>)
     }
 }

@@ -5,8 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
-import com.pk4us.declarationtable.data.Ad
+import com.pk4us.declarationtable.model.Ad
 import com.pk4us.declarationtable.databinding.AddListItemBinding
 
 class AdsRcAdapter(val auth:FirebaseAuth):RecyclerView.Adapter<AdsRcAdapter.AdHolder>() {

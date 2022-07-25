@@ -1,4 +1,4 @@
-package com.pk4us.declarationtable.data
+package com.pk4us.declarationtable.model
 
 data class Ad(
     val country: String? = null,
