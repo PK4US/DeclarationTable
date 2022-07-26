@@ -26,6 +26,13 @@ class DbManager {
         readDataFromDb(query,readDataCallback)
     }
 
+    fun deleteAd(ad: Ad, listener: FinishWorkListener) {
+        if (ad.key == null || ad.uid == null) return
+        db.child(ad.key).child(ad.uid).removeValue().addOnCompleteListener {
+            if (it.isSuccessful) listener.onFinish()
+        }
+    }
+
     fun getAllAds(readDataCallback: ReadDataCallback?){
         val query = db.orderByChild(auth.uid+"/ad/price")
         readDataFromDb(query,readDataCallback)

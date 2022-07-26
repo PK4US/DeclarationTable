@@ -24,9 +24,10 @@ import com.pk4us.declarationtable.databinding.ActivityMainBinding
 import com.pk4us.declarationtable.dialoghelper.DialogConst
 import com.pk4us.declarationtable.dialoghelper.DialogHelper
 import com.pk4us.declarationtable.dialoghelper.GoogleAccConst
+import com.pk4us.declarationtable.model.Ad
 import com.pk4us.declarationtable.viewModel.FirebaseViewModel
 
-class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener{
+class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener,AdsRcAdapter.DeleteItemListener{
 
     private lateinit var tvAccount: TextView
     private lateinit var binding: ActivityMainBinding
@@ -163,5 +164,9 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
     companion object{
         const val EDIT_STATE = "edit_state"
         const val ADS_DATA = "ads_data"
+    }
+
+    override fun onDeleteItem(ad: Ad) {
+        firebaseViewModel.deleteItem(ad)
     }
 }

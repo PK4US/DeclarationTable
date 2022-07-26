@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.pk4us.declarationtable.MainActivity
@@ -28,9 +29,10 @@ class AdsRcAdapter(val act:MainActivity):RecyclerView.Adapter<AdsRcAdapter.AdHol
     }
 
     fun updateAdapter(newList:List<Ad>){
+        val difResult = DiffUtil.calculateDiff(DiffUtilHelper(adArray,newList))
+        difResult.dispatchUpdatesTo(this)
         adArray.clear()
         adArray.addAll(newList)
-        notifyDataSetChanged()
     }
 
     class AdHolder(val binding: AddListItemBinding, val act: MainActivity) : RecyclerView.ViewHolder(binding.root) {
@@ -40,6 +42,7 @@ class AdsRcAdapter(val act:MainActivity):RecyclerView.Adapter<AdsRcAdapter.AdHol
             tvTitle.text = ad.title
             showEditPanel(isOwner(ad))
             ibEditAd.setOnClickListener(onClickEdit(ad))
+            ibDeleteAd.setOnClickListener{act.onDeleteItem(ad)}
         }
 
         private fun onClickEdit(ad: Ad): View.OnClickListener {
@@ -64,5 +67,8 @@ class AdsRcAdapter(val act:MainActivity):RecyclerView.Adapter<AdsRcAdapter.AdHol
                 binding.editPanel.visibility = View.GONE
             }
         }
+    }
+    interface DeleteItemListener{
+        fun onDeleteItem(ad: Ad)
     }
 }
