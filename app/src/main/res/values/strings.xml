@@ -6,6 +6,8 @@
     <!--    Menu Drawer Strings-->
     <string name="ad_cat1">Обьявления</string>
     <string name="ad_my_ads">Мои обьявления</string>
+    <string name="my_fav">Избранное</string>
+    <string name="def">Главная страница</string>
     <string name="ad_car">Машины</string>
     <string name="ad_pc">Компьютеры</string>
     <string name="ad_smartphone">Смартфоны</string>

@@ -93,15 +93,15 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
         mainContent.bNavView.setOnNavigationItemSelectedListener { item ->
             when(item.itemId){
                 R.id.id_home ->{
-                    Toast.makeText(this@MainActivity,"Pressed id_home",Toast.LENGTH_SHORT).show()
-
+                    firebaseViewModel.loadAllAds()
+                    mainContent.toolbar.title = getString(R.string.def)
                 }
                 R.id.id_favs ->{
                     Toast.makeText(this@MainActivity,"Pressed id_favs",Toast.LENGTH_SHORT).show()
                 }
                 R.id.id_my_ads ->{
-                    Toast.makeText(this@MainActivity,"Pressed id_my_ads",Toast.LENGTH_SHORT).show()
-
+                    firebaseViewModel.loadMyAds()
+                    mainContent.toolbar.title = getString(R.string.ad_my_ads)
                 }
                 R.id.id_new_ad ->{ val i = Intent(
                     this@MainActivity,EditAdsAct::class.java)
