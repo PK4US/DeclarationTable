@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import com.fxn.utility.PermUtil
+import com.pk4us.declarationtable.MainActivity
 import com.pk4us.declarationtable.R
 import com.pk4us.declarationtable.adapters.ImageAdapter
 import com.pk4us.declarationtable.model.Ad
@@ -37,6 +38,29 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
         setContentView(binding.root)
 
         init()
+        checkEditState()
+    }
+
+    private fun checkEditState(){
+        if (isEditState()){
+            fillViews(intent.getSerializableExtra(MainActivity.ADS_DATA)as Ad)
+        }
+    }
+
+    private fun isEditState():Boolean{
+        return intent.getBooleanExtra(MainActivity.EDIT_STATE,false)
+    }
+
+    private fun fillViews(ad:Ad)= with(binding){
+        tvCounty.text = ad.country
+        tvCity.text = ad.city
+        editTel.setText(ad.tel)
+        editIndex.setText(ad.index)
+        checkBoxWithSend.isChecked = ad.withSend.toBoolean()
+        tvCategory.text = ad.category
+        editTitle.setText(ad.title)
+        etPrice.setText(ad.price)
+        etDescription.setText(ad.description)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
