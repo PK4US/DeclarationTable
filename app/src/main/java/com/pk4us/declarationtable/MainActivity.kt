@@ -3,7 +3,6 @@ package com.pk4us.declarationtable
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
@@ -27,7 +26,7 @@ import com.pk4us.declarationtable.dialoghelper.GoogleAccConst
 import com.pk4us.declarationtable.model.Ad
 import com.pk4us.declarationtable.viewModel.FirebaseViewModel
 
-class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener,AdsRcAdapter.DeleteItemListener{
+class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener,AdsRcAdapter.Listener{
 
     private lateinit var tvAccount: TextView
     private lateinit var binding: ActivityMainBinding
@@ -168,5 +167,9 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
 
     override fun onDeleteItem(ad: Ad) {
         firebaseViewModel.deleteItem(ad)
+    }
+
+    override fun onAdViewed(ad: Ad) {
+        firebaseViewModel.adViewed(ad)
     }
 }

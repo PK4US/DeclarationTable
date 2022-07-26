@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Продам Iphone X 128G black"
+                android:text="TextView"
                 android:background="@color/green_main"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -98,7 +98,7 @@
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="16sp"
-                    android:text="4500" />
+                    android:text="0" />
 
                 <TextView
                     android:id="@+id/tvgrn"
@@ -149,13 +149,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:text="1475" />
+                        android:text="0" />
 
                     <ImageButton
                         android:id="@+id/ibFav"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginStart="10dp"
                         android:background="@android:color/transparent"
                         app:srcCompat="@drawable/ic_fav_norm" />
 
@@ -164,7 +164,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:text="24" />
+                        android:text="0" />
                 </LinearLayout>
 
                 <LinearLayout
