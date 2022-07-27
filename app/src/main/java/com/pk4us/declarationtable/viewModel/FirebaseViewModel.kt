@@ -16,12 +16,36 @@ class FirebaseViewModel:ViewModel() {
         })
     }
 
+    fun onFavClick(ad: Ad){
+        dbManager.onFavClick(ad,object:DbManager.FinishWorkListener{
+            override fun onFinish(){
+                val updatesList = liveAdsData.value
+                val pos = updatesList?.indexOf(ad)
+                if (pos!=-1){
+                    pos?.let {
+                        val favCounter = if (ad.isFav) ad.favCounter.toInt() - 1 else ad.favCounter.toInt() + 1
+                        updatesList[pos] = updatesList[pos].copy(isFav = !ad.isFav, favCounter = favCounter.toString())
+                    }
+                }
+                liveAdsData.postValue(updatesList)
+            }
+        })
+    }
+
     fun adViewed(ad: Ad){
         dbManager.adViewed(ad)
     }
 
     fun loadMyAds(){
         dbManager.getMyAds(object :DbManager.ReadDataCallback{
+            override fun readData(list: ArrayList<Ad>) {
+                liveAdsData.value = list
+            }
+        })
+    }
+
+    fun loadMyFavs(){
+        dbManager.getMyFavs(object :DbManager.ReadDataCallback{
             override fun readData(list: ArrayList<Ad>) {
                 liveAdsData.value = list
             }

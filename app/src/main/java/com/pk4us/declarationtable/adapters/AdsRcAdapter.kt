@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.pk4us.declarationtable.MainActivity
+import com.pk4us.declarationtable.R
 import com.pk4us.declarationtable.act.EditAdsAct
 import com.pk4us.declarationtable.model.Ad
 import com.pk4us.declarationtable.databinding.AddListItemBinding
@@ -41,7 +42,14 @@ class AdsRcAdapter(val act:MainActivity):RecyclerView.Adapter<AdsRcAdapter.AdHol
             tvPrice.text = ad.price
             tvTitle.text = ad.title
             tvViewCounter.text = ad.viewsCounter
+            tvFavCounter.text = ad.favCounter
+            if (ad.isFav){
+                ibFav.setImageResource(R.drawable.ic_fav_pressed)
+            }else ibFav.setImageResource(R.drawable.ic_fav_norm)
             showEditPanel(isOwner(ad))
+            ibFav.setOnClickListener{
+                act.onFavClicked(ad)
+            }
             itemView.setOnClickListener{
                 act.onAdViewed(ad)
             }
@@ -75,5 +83,6 @@ class AdsRcAdapter(val act:MainActivity):RecyclerView.Adapter<AdsRcAdapter.AdHol
     interface Listener{
         fun onDeleteItem(ad: Ad)
         fun onAdViewed(ad: Ad)
+        fun onFavClicked(ad: Ad)
     }
 }

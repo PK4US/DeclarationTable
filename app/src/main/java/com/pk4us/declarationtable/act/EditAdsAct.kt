@@ -153,6 +153,7 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
                 etPrice.text.toString(),
                 etDescription.text.toString(),
                 dbManager.db.push().key,
+                "0",
                 dbManager.auth.uid)
         }
         return ad

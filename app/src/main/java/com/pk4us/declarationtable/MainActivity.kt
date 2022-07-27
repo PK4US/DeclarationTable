@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -72,7 +73,9 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
     }
 
     private fun initViewModel(){
-        firebaseViewModel.liveAdsData.observe(this,{ adapter.updateAdapter(it) })
+        firebaseViewModel.liveAdsData.observe(this,{ adapter.updateAdapter(it)
+            binding.mainContent.tvEmpty.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+        })
     }
 
     private fun init(){
@@ -97,7 +100,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
                     mainContent.toolbar.title = getString(R.string.def)
                 }
                 R.id.id_favs ->{
-                    Toast.makeText(this@MainActivity,"Pressed id_favs",Toast.LENGTH_SHORT).show()
+                    firebaseViewModel.loadMyFavs()
                 }
                 R.id.id_my_ads ->{
                     firebaseViewModel.loadMyAds()
@@ -171,5 +174,9 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
 
     override fun onAdViewed(ad: Ad) {
         firebaseViewModel.adViewed(ad)
+    }
+
+    override fun onFavClicked(ad: Ad) {
+        firebaseViewModel.onFavClick(ad)
     }
 }
