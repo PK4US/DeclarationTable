@@ -47,8 +47,8 @@ class AdsRcAdapter(val act:MainActivity):RecyclerView.Adapter<AdsRcAdapter.AdHol
                 ibFav.setImageResource(R.drawable.ic_fav_pressed)
             }else ibFav.setImageResource(R.drawable.ic_fav_norm)
             showEditPanel(isOwner(ad))
-            ibFav.setOnClickListener{
-                act.onFavClicked(ad)
+            ibFav.setOnClickListener {
+                if (act.myAuth.currentUser?.isAnonymous == false) act.onFavClicked(ad)
             }
             itemView.setOnClickListener{
                 act.onAdViewed(ad)

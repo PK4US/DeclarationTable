@@ -18,6 +18,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.pk4us.declarationtable.accountHelper.AccountHelper
 import com.pk4us.declarationtable.act.EditAdsAct
 import com.pk4us.declarationtable.adapters.AdsRcAdapter
 import com.pk4us.declarationtable.databinding.ActivityMainBinding
@@ -146,6 +147,9 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
                 dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
             }
             R.id.id_sign_out ->{
+                if (myAuth.currentUser?.isAnonymous == true ){
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    return true}
                 uiUpdate(null)
                 myAuth.signOut()
                 dialogHelper.accHelper.signOutGoogle()
@@ -156,10 +160,16 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
     }
 
     fun uiUpdate(user:FirebaseUser?){
-        tvAccount.text = if (user==null){
-            resources.getString(R.string.not_reg)
-        }else{
-            user.email
+        if (user==null){
+            dialogHelper.accHelper.signInAnonymously(object:AccountHelper.Listener{
+                override fun onComplete() {
+                    tvAccount.text = "Гость"
+                }
+            })
+        }else if (user.isAnonymous){
+            tvAccount.text = "Гость"
+        }else if (!user.isAnonymous){
+            tvAccount.text = user.email
         }
     }
 
