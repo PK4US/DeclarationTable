@@ -4,9 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.pk4us.declarationtable.R
 import com.pk4us.declarationtable.act.EditAdsAct
@@ -51,7 +48,7 @@ class SelectImageRvAdapter(val adapterCallback:AdapterCallback): RecyclerView.Ad
     class ImageHolder(private val viewBinding:SelectImageFragmentItemBinding, val context: Context, val adapter: SelectImageRvAdapter): RecyclerView.ViewHolder(viewBinding.root) {
         fun setData(bitmap:Bitmap){
             viewBinding.imEditImage.setOnClickListener {
-                ImagePicker.launcher(context as EditAdsAct,context.launcherSingleSelectImage,1)
+                ImagePicker.getSingleImages(context as EditAdsAct)
                 context.editImagePosition = adapterPosition
             }
 
