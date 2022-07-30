@@ -10,10 +10,12 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.pk4us.declarationtable.MainActivity
 
 class DbManager {
     val db = Firebase.database.getReference(MAIN_NODE)
+    val dbStorage = Firebase.storage.getReference(MAIN_NODE)
     val auth = Firebase.auth
 
     fun publishAd(ad: Ad,finishListener:FinishWorkListener){

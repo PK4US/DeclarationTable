@@ -56,15 +56,11 @@ class ImageListFragment(
         adapter.updateAdapter(bitmapList, true)
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        fragmentCloseInterface.onFragClose(adapter.mainArray)
-        job?.cancel()
-    }
-
     override fun onClose() {
         super.onClose()
         activity?.supportFragmentManager?.beginTransaction()?.remove(this@ImageListFragment)?.commit()
+        fragmentCloseInterface.onFragClose(adapter.mainArray)
+        job?.cancel()
     }
 
     fun resizeSelectedImages(newList: ArrayList<Uri>, needClear: Boolean,activity: Activity) {
@@ -82,7 +78,7 @@ class ImageListFragment(
         val deleteImageItem = binding.tb.menu.findItem(R.id.id_delete_image)
         addImageItem = binding.tb.menu.findItem(R.id.id_add_image)
         if (adapter.mainArray.size > 2) addImageItem?.isVisible = false
-        
+
         binding.tb.setNavigationOnClickListener {
             showInterAd()
         }
