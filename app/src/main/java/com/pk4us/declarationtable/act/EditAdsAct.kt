@@ -135,7 +135,9 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
                 tvCategory.text.toString(),
                 etPrice.text.toString(),
                 etDescription.text.toString(),
-                mainImage = "Empty",
+                "Empty",
+                "Empty",
+                "Empty",
                 dbManager.db.push().key,
                 "0",
                 dbManager.auth.uid)
