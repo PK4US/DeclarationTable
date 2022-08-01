@@ -35,6 +35,7 @@ object ImagePicker {
                     editAdsAct.chooseImageFragment?.updateAdapter(result.data as ArrayList<Uri>,editAdsAct)
 
                 }
+                else -> {}
             }
         }
     }
@@ -46,6 +47,7 @@ object ImagePicker {
                     getMultiSelectImages(editAdsAct, result.data)
                     closePixFragment(editAdsAct)
                 }
+                else -> {}
             }
         }
     }
@@ -57,6 +59,7 @@ object ImagePicker {
                     openChooseImageFragment(editAdsAct)
                     singleImage(editAdsAct,result.data[0])
                 }
+                else -> {}
             }
         }
     }

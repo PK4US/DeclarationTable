@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
 import com.pk4us.declarationtable.MainActivity
 import com.pk4us.declarationtable.R
+import com.pk4us.declarationtable.act.DescriptionActivity
 import com.pk4us.declarationtable.act.EditAdsAct
 import com.pk4us.declarationtable.model.Ad
 import com.pk4us.declarationtable.databinding.AddListItemBinding
@@ -60,6 +60,11 @@ class AdsRcAdapter(val act:MainActivity):RecyclerView.Adapter<AdsRcAdapter.AdHol
             }
             ibEditAd.setOnClickListener(onClickEdit(ad))
             ibDeleteAd.setOnClickListener{act.onDeleteItem(ad)}
+            itemView.setOnClickListener {
+                val i = Intent(binding.root.context,DescriptionActivity::class.java)
+                i.putExtra("AD",ad)
+                binding.root.context.startActivity(i)
+            }
         }
 
         private fun isFav(ad: Ad){

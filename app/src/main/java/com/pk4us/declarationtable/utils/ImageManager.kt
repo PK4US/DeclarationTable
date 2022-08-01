@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.media.ExifInterface
 import android.net.Uri
 import android.widget.ImageView
+import com.pk4us.declarationtable.model.Ad
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -61,6 +62,16 @@ object ImageManager {
         for (i in uris.indices){
             kotlin.runCatching {
                 bitmapList.add(Picasso.get().load(uris[i]).resize(tempList[i][WIDTH],tempList[i][HEIGHT]).get())
+            }
+        }
+        return@withContext bitmapList
+    }
+
+    suspend fun getBitmapFromUris(uris:List<String?>):List<Bitmap> = withContext(Dispatchers.IO){
+        val bitmapList = ArrayList<Bitmap>()
+        for (i in uris.indices){
+            kotlin.runCatching {
+                bitmapList.add(Picasso.get().load(uris[i]).get())
             }
         }
         return@withContext bitmapList
