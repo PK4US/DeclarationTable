@@ -7,6 +7,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +25,7 @@ import com.pk4us.declarationtable.accountHelper.AccountHelper
 import com.pk4us.declarationtable.act.DescriptionActivity
 import com.pk4us.declarationtable.act.EditAdsAct
 import com.pk4us.declarationtable.adapters.AdsRcAdapter
+import com.pk4us.declarationtable.databinding.ActivityEditAdsBinding
 import com.pk4us.declarationtable.databinding.ActivityMainBinding
 import com.pk4us.declarationtable.dialoghelper.DialogConst
 import com.pk4us.declarationtable.dialoghelper.DialogHelper
@@ -37,6 +40,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
     private val dialogHelper = DialogHelper(this)
     val  myAuth = Firebase.auth
     val adapter = AdsRcAdapter(this)
+    lateinit var googleSignInLauncher:ActivityResultLauncher<Intent>
     private val firebaseViewModel :FirebaseViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,24 +54,19 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
         bottomMenuOnClick()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == GoogleAccConst.GOOGLE_SIGN_IN_REQUEST_CODE){
-//            Log.d("MyLog","Sign in result")
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+    private fun onActivityResult() {
+        googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
             try {
                 val account = task.getResult(ApiException::class.java)
-                if (account != null){
-                    Log.d("MyLog","Api 0")
-
+                if (account != null) {
+                    Log.d("MyLog", "Api 0")
                     dialogHelper.accHelper.signInFirebaseWithGoogle(account.idToken!!)
-                }else{
-                    Log.d("MyLog","Token id NULL")
-                }
-            }catch (e:ApiException){
-                Log.d("MyLog","Api error : ${e.message}" )
+                } else { Log.d("MyLog", "Token id NULL") }
+            } catch (e: ApiException) {
+                Log.d("MyLog", "Api error : ${e.message}")
             }
         }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onStart() {
@@ -83,6 +82,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
 
     private fun init(){
         setSupportActionBar(binding.mainContent.toolbar)
+        onActivityResult()
         var toggle = ActionBarDrawerToggle(this,binding.drawerLayout,binding.mainContent.toolbar,R.string.open,R.string.close)
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
