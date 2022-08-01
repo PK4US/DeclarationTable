@@ -27,6 +27,9 @@
 
     <style name="ActionBarCustom" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
        <item name="android:textColorSecondary">@color/green_main</item>
+    </style>
 
+    <style name="FloatingActionButtonTheme" >
+        <item name="colorOnSecondary">@color/white</item>
     </style>
 </resources>
