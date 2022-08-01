@@ -198,6 +198,38 @@
                         android:textSize="16sp" />
 
                     <LinearLayout
+                        android:id="@+id/divider22"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/green_main"
+                        android:orientation="horizontal">
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Email"
+                        android:textColor="@color/green_main"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:ems="10"
+                        android:hint="*Напишите свой email адресс"
+                        android:inputType="textEmailAddress"
+                        android:padding="10dp"
+                        android:textColorHint="@color/dark_grey"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
                         android:id="@+id/divider3"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"

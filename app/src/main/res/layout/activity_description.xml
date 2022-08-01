@@ -42,7 +42,6 @@
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="#C0D1D8"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:background="#F8EF9F"
+                android:background="#C4FFC6"
                 android:padding="10dp"
                 android:textStyle="bold"
                 android:text="TextView" />
@@ -95,7 +94,7 @@
                     android:id="@+id/tvPriceD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/red"
+                    android:textColor="@color/green_main"
                     android:textStyle="bold"
                     android:padding="10dp"
                     android:text="Цена:" />
@@ -120,7 +119,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="Телефон:"
-                    android:textColor="@color/red"
+                    android:textColor="@color/green_main"
                     android:textStyle="bold" />
 
                 <TextView
@@ -143,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="Email:"
-                    android:textColor="@color/red"
+                    android:textColor="@color/green_main"
                     android:textStyle="bold" />
 
                 <TextView
@@ -166,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="Страна:"
-                    android:textColor="@color/red"
+                    android:textColor="@color/green_main"
                     android:textStyle="bold" />
 
                 <TextView
@@ -189,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="Город:"
-                    android:textColor="@color/red"
+                    android:textColor="@color/green_main"
                     android:textStyle="bold" />
 
                 <TextView
@@ -212,7 +211,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="Индекс:"
-                    android:textColor="@color/red"
+                    android:textColor="@color/green_main"
                     android:textStyle="bold" />
 
                 <TextView
@@ -234,7 +233,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="С отправкой:"
-                    android:textColor="@color/red"
+                    android:textColor="@color/green_main"
                     android:textStyle="bold" />
 
                 <TextView
@@ -261,6 +260,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:padding="5dp"
+            app:elevation="0dp"
             android:layout_weight="1"
             android:clickable="true"
             android:backgroundTint="@color/green_main"
@@ -272,6 +272,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            app:elevation="0dp"
+
             android:clickable="true"
             android:backgroundTint="@color/green_main"
             android:theme="@style/FloatingActionButtonTheme"

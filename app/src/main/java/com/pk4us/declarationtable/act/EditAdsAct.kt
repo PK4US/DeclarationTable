@@ -135,6 +135,7 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
                 tvCategory.text.toString(),
                 etPrice.text.toString(),
                 etDescription.text.toString(),
+                edEmail.text.toString(),
                 "Empty",
                 "Empty",
                 "Empty",
