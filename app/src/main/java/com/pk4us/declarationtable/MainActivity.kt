@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.pk4us.declarationtable.accountHelper.AccountHelper
+import com.pk4us.declarationtable.act.DescriptionActivity
 import com.pk4us.declarationtable.act.EditAdsAct
 import com.pk4us.declarationtable.adapters.AdsRcAdapter
 import com.pk4us.declarationtable.databinding.ActivityMainBinding
@@ -184,6 +186,9 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
 
     override fun onAdViewed(ad: Ad) {
         firebaseViewModel.adViewed(ad)
+        val i = Intent(this, DescriptionActivity::class.java)
+        i.putExtra("AD", ad)
+        startActivity(i)
     }
 
     override fun onFavClicked(ad: Ad) {

@@ -1,7 +1,6 @@
 package com.pk4us.declarationtable.act
 
 import android.graphics.Bitmap
-import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -18,6 +17,7 @@ import com.pk4us.declarationtable.dialogs.DialogSpinnerHelper
 import com.pk4us.declarationtable.fragment.FragmentCloseInterface
 import com.pk4us.declarationtable.fragment.ImageListFragment
 import com.pk4us.declarationtable.utils.CityHelper
+import com.pk4us.declarationtable.utils.ImageManager
 import com.pk4us.declarationtable.utils.ImagePicker
 import java.io.ByteArrayOutputStream
 
@@ -25,7 +25,7 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
     var chooseImageFragment : ImageListFragment? = null
     lateinit var binding: ActivityEditAdsBinding
     private val dialog = DialogSpinnerHelper()
-    lateinit var imageAdapter:ImageAdapter
+    lateinit var adapter:ImageAdapter
     val dbManager = DbManager()
     var editImagePosition = 0
     private var imageIndex = 0
@@ -63,11 +63,13 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
         editTitle.setText(ad.title)
         etPrice.setText(ad.price)
         etDescription.setText(ad.description)
+
+        ImageManager.fillImageArray(ad,adapter)
     }
 
     private fun init() {
-        imageAdapter = ImageAdapter()
-        binding.vpImages.adapter = imageAdapter
+        adapter = ImageAdapter()
+        binding.vpImages.adapter = adapter
     }
 
     //onClicks
@@ -96,11 +98,11 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
     }
 
     fun onClickGetImages(view: View){
-        if (imageAdapter.mainArray.size == 0){
+        if (adapter.mainArray.size == 0){
             ImagePicker.getMultiImages(this,3)
         } else{
             openChooseImageFragment(null)
-            chooseImageFragment?.updateAdapterFromEdit(imageAdapter.mainArray)
+            chooseImageFragment?.updateAdapterFromEdit(adapter.mainArray)
         }
     }
 
@@ -148,7 +150,7 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
 
     override fun onFragClose(list: ArrayList<Bitmap>) {
         binding.scrollViewMain.visibility = View.VISIBLE
-        imageAdapter.update(list)
+        adapter.update(list)
         chooseImageFragment = null
     }
 
@@ -162,11 +164,11 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
     }
 
     private fun uploadImages(){
-        if (imageAdapter.mainArray.size == imageIndex){
+        if (adapter.mainArray.size == imageIndex){
             dbManager.publishAd(ad!!,onPublishFinish())
             return
         }
-        val byteArray = prepareImageByteArray(imageAdapter.mainArray[imageIndex])
+        val byteArray = prepareImageByteArray(adapter.mainArray[imageIndex])
         uploadImage(byteArray){
             //dbManager.publishAd(ad!!,onPublishFinish())
             nextImage(it.result.toString())

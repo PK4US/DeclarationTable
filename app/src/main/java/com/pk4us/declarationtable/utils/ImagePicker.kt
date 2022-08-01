@@ -3,7 +3,6 @@ package com.pk4us.declarationtable.utils
 import android.graphics.Bitmap
 import android.net.Uri
 import android.view.View
-import androidx.fragment.app.Fragment
 import com.pk4us.declarationtable.R
 import com.pk4us.declarationtable.act.EditAdsAct
 import io.ak1.pix.helpers.PixEventCallback
@@ -85,7 +84,7 @@ object ImagePicker {
                 val bitmapArray =
                     ImageManager.imageResize(uris, editAdsAct) as ArrayList<Bitmap>
                 editAdsAct.binding.pBarLoad.visibility = View.GONE
-                editAdsAct.imageAdapter.update(bitmapArray)
+                editAdsAct.adapter.update(bitmapArray)
                 closePixFragment(editAdsAct)
             }
         }
