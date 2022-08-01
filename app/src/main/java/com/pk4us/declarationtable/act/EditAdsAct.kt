@@ -58,7 +58,7 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
         tvCity.text = ad.city
         editTel.setText(ad.tel)
         editIndex.setText(ad.index)
-        checkBoxWithSend.isChecked = ad.withSend.toBoolean()
+        checkBoxWithSend.isChecked = ad.withSent.toBoolean()
         tvCategory.text = ad.category
         editTitle.setText(ad.title)
         etPrice.setText(ad.price)

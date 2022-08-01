@@ -20,8 +20,7 @@ class DescriptionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDescriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        init()
-    }
+        init() }
 
     private fun init(){
         adapter = ImageAdapter()
@@ -34,8 +33,29 @@ class DescriptionActivity : AppCompatActivity() {
 
     private fun getIntentFromMainAct(){
         val ad = intent.getSerializableExtra("AD") as Ad
-        fillImageArray(ad)
+        updateUi(ad)
     }
+
+    private fun updateUi(ad: Ad){
+        fillImageArray(ad)
+        fillTextViews(ad)
+    }
+
+    private fun fillTextViews (ad: Ad) = with(binding){
+        tvTitle.text = ad.title
+        tvDescription.text = ad.description
+        tvPrice.text = ad.price
+        tvTel.text = ad.tel
+        tvCountry.text = ad.country
+        tvCity.text = ad.city
+        tvIndex.text = ad.index
+        tvWithSent.text = isWithSent(ad.withSent.toBoolean())
+    }
+
+    private fun isWithSent (withSent:Boolean):String{
+        return if (withSent) "Да" else "Нет"
+    }
+
     private fun fillImageArray (ad: Ad){
         val listUris = listOf(ad.mainImage,ad.image2,ad.image3)
         CoroutineScope(Dispatchers.Main).launch {
