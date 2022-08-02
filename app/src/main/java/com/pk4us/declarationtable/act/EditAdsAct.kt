@@ -145,7 +145,7 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
                 "Empty",
                 dbManager.db.push().key,
                 "0",
-                dbManager.auth.uid)
+                dbManager.auth.uid,System.currentTimeMillis().toString())
         }
         return ad
     }

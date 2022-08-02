@@ -56,7 +56,6 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
         initRecyclerView()
         init()
         initViewModel()
-        firebaseViewModel.loadAllAds()
         bottomMenuOnClick()
         scrollListener()
     }
@@ -108,7 +107,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
         mainContent.bNavView.setOnNavigationItemSelectedListener { item ->
             when(item.itemId){
                 R.id.id_home ->{
-                    firebaseViewModel.loadAllAds()
+                    firebaseViewModel.loadAllAds("0")
                     mainContent.toolbar.title = getString(R.string.def)
                 }
                 R.id.id_favs ->{
@@ -221,6 +220,10 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
                 super.onScrollStateChanged(recView, newState)
                 if (!recView.canScrollVertically(SCROLL_DOWN) && newState == RecyclerView.SCROLL_STATE_IDLE){
                     Log.d("MyLog","Can scroll down")
+                    val adsList = firebaseViewModel.liveAdsData.value!!
+                    if (adsList.isNotEmpty()){
+                        adsList[adsList.size-1].let { firebaseViewModel.loadAllAds(it.time) }
+                    }
                 }
             }
         })
