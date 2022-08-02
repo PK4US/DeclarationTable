@@ -2,9 +2,12 @@ package com.pk4us.declarationtable
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -32,10 +35,12 @@ import com.pk4us.declarationtable.dialoghelper.DialogHelper
 import com.pk4us.declarationtable.dialoghelper.GoogleAccConst
 import com.pk4us.declarationtable.model.Ad
 import com.pk4us.declarationtable.viewModel.FirebaseViewModel
+import com.squareup.picasso.Picasso
 
 class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener,AdsRcAdapter.Listener{
 
     private lateinit var tvAccount: TextView
+    private lateinit var imAccount: ImageView
     private lateinit var binding: ActivityMainBinding
     private val dialogHelper = DialogHelper(this)
     val  myAuth = Firebase.auth
@@ -83,11 +88,13 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
     private fun init(){
         setSupportActionBar(binding.mainContent.toolbar)
         onActivityResult()
+        navViewSettings()
         var toggle = ActionBarDrawerToggle(this,binding.drawerLayout,binding.mainContent.toolbar,R.string.open,R.string.close)
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         binding.navView.setNavigationItemSelectedListener(this)
         tvAccount = binding.navView.getHeaderView(0).findViewById(R.id.tvAccountEmail)
+        imAccount = binding.navView.getHeaderView(0).findViewById(R.id.imAccountImage)
     }
 
     override fun onResume() {
@@ -166,12 +173,15 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
             dialogHelper.accHelper.signInAnonymously(object:AccountHelper.Listener{
                 override fun onComplete() {
                     tvAccount.text = "Гость"
+                    imAccount.setImageResource(R.drawable.ic_account_def)
                 }
             })
         }else if (user.isAnonymous){
             tvAccount.text = "Гость"
+            imAccount.setImageResource(R.drawable.ic_account_def)
         }else if (!user.isAnonymous){
             tvAccount.text = user.email
+            Picasso.get().load(user.photoUrl).into(imAccount)
         }
     }
 
@@ -193,5 +203,18 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
 
     override fun onFavClicked(ad: Ad) {
         firebaseViewModel.onFavClick(ad)
+    }
+
+    private fun navViewSettings() = with(binding){
+        val menu = navView.menu
+        val adsCat = menu.findItem(R.id.adsCat)
+        val spanAdsCat = SpannableString(adsCat.title)
+        spanAdsCat.setSpan(ForegroundColorSpan(ContextCompat.getColor(this@MainActivity, R.color.green_main)),0,adsCat.title.length,0)
+        adsCat.title = spanAdsCat
+
+        val accCat = menu.findItem(R.id.accCat)
+        val spanAccCat = SpannableString(accCat.title)
+        spanAccCat.setSpan(ForegroundColorSpan(ContextCompat.getColor(this@MainActivity, R.color.green_main)),0,accCat.title.length,0)
+        accCat.title = spanAccCat
     }
 }
