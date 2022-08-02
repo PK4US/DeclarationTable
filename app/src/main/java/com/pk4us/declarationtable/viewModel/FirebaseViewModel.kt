@@ -8,10 +8,19 @@ import com.pk4us.declarationtable.model.DbManager
 class FirebaseViewModel:ViewModel() {
     private val dbManager = DbManager()
     val liveAdsData = MutableLiveData<ArrayList<Ad>>()
+
     fun loadAllAds(lastTime:String){
         dbManager.getAllAds(lastTime,object :DbManager.ReadDataCallback{
             override fun readData(list: ArrayList<Ad>) {
              liveAdsData.value = list
+            }
+        })
+    }
+
+    fun loadAllAdsFromCat(lastCatTime:String){
+        dbManager.getAllAdsFromCat(lastCatTime,object :DbManager.ReadDataCallback{
+            override fun readData(list: ArrayList<Ad>) {
+                liveAdsData.value = list
             }
         })
     }
