@@ -41,6 +41,13 @@ class AdsRcAdapter(val act:MainActivity):RecyclerView.Adapter<AdsRcAdapter.AdHol
         adArray.addAll(tempArray)
     }
 
+    fun updateAdapterWithClear(newList:List<Ad>){
+        val difResult = DiffUtil.calculateDiff(DiffUtilHelper(adArray,newList))
+        difResult.dispatchUpdatesTo(this)
+        adArray.clear()
+        adArray.addAll(newList)
+    }
+
     class AdHolder(val binding: AddListItemBinding, val act: MainActivity) : RecyclerView.ViewHolder(binding.root) {
         fun setData(ad: Ad) = with(binding) {
             tvDescription.text = ad.description

@@ -48,6 +48,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
     val adapter = AdsRcAdapter(this)
     lateinit var googleSignInLauncher:ActivityResultLauncher<Intent>
     private val firebaseViewModel :FirebaseViewModel by viewModels()
+    private var clearUpdate:Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,9 +82,14 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
     }
 
     private fun initViewModel(){
-        firebaseViewModel.liveAdsData.observe(this,{ adapter.updateAdapter(it)
-            binding.mainContent.tvEmpty.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
-        })
+        firebaseViewModel.liveAdsData.observe(this) {
+            if (!clearUpdate) {
+                adapter.updateAdapter(it)
+            } else {
+                adapter.updateAdapterWithClear(it)
+            }
+            binding.mainContent.tvEmpty.visibility = if (adapter.itemCount == 0) View.VISIBLE else View.GONE
+        }
     }
 
     private fun init(){
@@ -105,6 +111,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
 
     private fun bottomMenuOnClick() = with(binding){
         mainContent.bNavView.setOnNavigationItemSelectedListener { item ->
+            clearUpdate = true
             when(item.itemId){
                 R.id.id_home ->{
                     firebaseViewModel.loadAllAds("0")
@@ -134,6 +141,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        clearUpdate = true
         when(item.itemId){
             R.id.id_my_ads ->{
                 Toast.makeText(this,"Pressed id_my_ads",Toast.LENGTH_SHORT).show()
@@ -219,7 +227,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
             override fun onScrollStateChanged(recView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recView, newState)
                 if (!recView.canScrollVertically(SCROLL_DOWN) && newState == RecyclerView.SCROLL_STATE_IDLE){
-                    Log.d("MyLog","Can scroll down")
+                    clearUpdate = false
                     val adsList = firebaseViewModel.liveAdsData.value!!
                     if (adsList.isNotEmpty()){
                         adsList[adsList.size-1].let { firebaseViewModel.loadAllAds(it.time) }
