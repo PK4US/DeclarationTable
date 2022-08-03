@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
@@ -28,6 +29,7 @@ import com.google.firebase.ktx.Firebase
 import com.pk4us.declarationtable.accountHelper.AccountHelper
 import com.pk4us.declarationtable.act.DescriptionActivity
 import com.pk4us.declarationtable.act.EditAdsAct
+import com.pk4us.declarationtable.act.FilterActivity
 import com.pk4us.declarationtable.adapters.AdsRcAdapter
 import com.pk4us.declarationtable.databinding.ActivityMainBinding
 import com.pk4us.declarationtable.dialoghelper.DialogConst
@@ -117,6 +119,16 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
         binding.navView.setNavigationItemSelectedListener(this)
         tvAccount = binding.navView.getHeaderView(0).findViewById(R.id.tvAccountEmail)
         imAccount = binding.navView.getHeaderView(0).findViewById(R.id.imAccountImage)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.id_filter) startActivity(Intent(this@MainActivity,FilterActivity::class.java))
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {

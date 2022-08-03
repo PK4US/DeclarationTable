@@ -15,6 +15,10 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:theme="@style/AppTheme.Filter"
+            android:name=".act.FilterActivity"
+            android:exported="false" />
+        <activity
             android:name=".act.DescriptionActivity"
             android:exported="false" />
         <activity
