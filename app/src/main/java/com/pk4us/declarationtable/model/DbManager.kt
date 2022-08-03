@@ -78,13 +78,23 @@ class DbManager {
         }
     }
 
-    fun getAllAds(lastTime:String, readDataCallback: ReadDataCallback?){
-        val query = db.orderByChild("/adFilter/time").startAfter(lastTime).limitToFirst(ADS_LIMIT)
+    fun getAllAdsFirstPage(readDataCallback: ReadDataCallback?){
+        val query = db.orderByChild("/adFilter/time").limitToLast(ADS_LIMIT)
         readDataFromDb(query,readDataCallback)
     }
 
-    fun getAllAdsFromCat(lastCatTime:String, readDataCallback: ReadDataCallback?){
-        val query = db.orderByChild("/adFilter/catTime").startAfter(lastCatTime).limitToFirst(ADS_LIMIT)
+    fun getAllAdsNextPage(time:String,readDataCallback: ReadDataCallback?){
+        val query = db.orderByChild("/adFilter/time").endBefore(time).limitToLast(ADS_LIMIT)
+        readDataFromDb(query,readDataCallback)
+    }
+
+    fun getAllAdsFromCatFirstPage(cat:String, readDataCallback: ReadDataCallback?){
+        val query = db.orderByChild("/adFilter/catTime").startAt(cat).endAt(cat+"_\uf8ff").limitToLast(ADS_LIMIT)
+        readDataFromDb(query,readDataCallback)
+    }
+
+    fun getAllAdsFromCatNextPage(catTime:String, readDataCallback: ReadDataCallback?){
+        val query = db.orderByChild("/adFilter/catTime").endBefore(catTime).limitToLast(ADS_LIMIT)
         readDataFromDb(query,readDataCallback)
     }
 
