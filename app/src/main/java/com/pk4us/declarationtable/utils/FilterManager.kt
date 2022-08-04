@@ -21,4 +21,14 @@ object FilterManager {
             "${ad.withSent}_${ad.time}",
         )
     }
+
+    fun getFilter(filter: String):String{
+        val sBuilder = StringBuilder()
+        val tempArray = filter.split("_")
+        if (tempArray[0]!="empty") sBuilder.append("county_")
+        if (tempArray[1]!="empty") sBuilder.append("city_")
+        if (tempArray[2]!="empty") sBuilder.append("index_")
+        sBuilder.append("withSent_time")
+        return sBuilder.toString()
+    }
 }

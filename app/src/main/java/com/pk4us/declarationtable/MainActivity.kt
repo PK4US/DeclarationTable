@@ -36,6 +36,7 @@ import com.pk4us.declarationtable.databinding.ActivityMainBinding
 import com.pk4us.declarationtable.dialoghelper.DialogConst
 import com.pk4us.declarationtable.dialoghelper.DialogHelper
 import com.pk4us.declarationtable.model.Ad
+import com.pk4us.declarationtable.utils.FilterManager
 import com.pk4us.declarationtable.viewModel.FirebaseViewModel
 import com.squareup.picasso.Picasso
 
@@ -86,6 +87,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
             if (it.resultCode == RESULT_OK){
                 filter = it.data?.getStringExtra(FilterActivity.FILTER_KEY)!!
                 Log.d("MyLog","Filter: $filter")
+                Log.d("MyLog","getFilter: ${FilterManager.getFilter(filter)}")
             }
         }
     }
