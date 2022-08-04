@@ -53,6 +53,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
     private var clearUpdate:Boolean = true
     private var currentCategory:String? = null
     private var filter:String = "empty"
+    private var filterDb:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,6 +88,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
                 filter = it.data?.getStringExtra(FilterActivity.FILTER_KEY)!!
                 Log.d("MyLog","Filter: $filter")
                 Log.d("MyLog","getFilter: ${FilterManager.getFilter(filter)}")
+                filterDb = FilterManager.getFilter(filter)
             }
         }
     }
@@ -115,7 +117,6 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
             tempList.clear()
             list.forEach{
                 if (currentCategory == it.category)tempList.add(it)
-
             }
         }
         tempList.reverse()
@@ -127,7 +128,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
         setSupportActionBar(binding.mainContent.toolbar)
         onActivityResult()
         navViewSettings()
-        var toggle = ActionBarDrawerToggle(this,binding.drawerLayout,binding.mainContent.toolbar,R.string.open,R.string.close)
+        val toggle = ActionBarDrawerToggle(this,binding.drawerLayout,binding.mainContent.toolbar,R.string.open,R.string.close)
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         binding.navView.setNavigationItemSelectedListener(this)
@@ -161,7 +162,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
             when(item.itemId){
                 R.id.id_home ->{
                     currentCategory = getString(R.string.def)
-                    firebaseViewModel.loadAllAdsFirstPage()
+                    firebaseViewModel.loadAllAdsFirstPage(filterDb)
                     mainContent.toolbar.title = getString(R.string.def)
                 }
                 R.id.id_favs ->{
@@ -177,7 +178,6 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
             }
             true
         }
-
     }
 
     private fun initRecyclerView(){
@@ -291,14 +291,12 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
 
     private fun getAdsFromCat(adsList: ArrayList<Ad>) {
         adsList[0].let {
-
             if (currentCategory == getString(R.string.def)) {
                 firebaseViewModel.loadAllAdsNextPage(it.time)
             } else {
                 val catTime ="${it.category}_${it.time}"
                     firebaseViewModel.loadAllAdsFromCatNextPage(catTime)
             }
-
         }
     }
 
