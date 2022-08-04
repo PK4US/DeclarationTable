@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import com.pk4us.declarationtable.R
 import com.pk4us.declarationtable.databinding.ActivityFilterBinding

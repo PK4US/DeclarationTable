@@ -1,17 +1,13 @@
 package com.pk4us.declarationtable.model
 
-import android.util.Log
-import android.widget.Toast
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import com.pk4us.declarationtable.MainActivity
 import com.pk4us.declarationtable.utils.FilterManager
 
 class DbManager {
@@ -79,9 +75,20 @@ class DbManager {
         }
     }
 
-    fun getAllAdsFirstPage(readDataCallback: ReadDataCallback?){
-        val query = db.orderByChild("/adFilter/time").limitToLast(ADS_LIMIT)
+    fun getAllAdsFirstPage(filter: String, readDataCallback: ReadDataCallback?){
+        val query = if (filter.isEmpty()){
+            db.orderByChild("/adFilter/time").limitToLast(ADS_LIMIT)
+        }else{
+             getAllAdsByFilterFirstPage(filter)
+        }
         readDataFromDb(query,readDataCallback)
+    }
+
+    fun getAllAdsByFilterFirstPage(tempFilter:String, ):Query{
+        val orderBy = tempFilter.split("|")[0]
+        val filter = tempFilter.split("|")[1]
+       return db.orderByChild("/adFilter/$orderBy")
+           .startAt(filter).endAt(filter + "\uf8ff").limitToLast(ADS_LIMIT)
     }
 
     fun getAllAdsNextPage(time:String,readDataCallback: ReadDataCallback?){
