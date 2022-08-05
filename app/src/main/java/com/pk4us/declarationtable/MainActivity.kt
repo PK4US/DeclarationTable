@@ -295,8 +295,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
             if (currentCategory == getString(R.string.def)) {
                 firebaseViewModel.loadAllAdsNextPage(it.time,filterDb)
             } else {
-                val catTime ="${it.category}_${it.time}"
-                    firebaseViewModel.loadAllAdsFromCatNextPage(catTime)
+                    firebaseViewModel.loadAllAdsFromCatNextPage(it.category!!,it.time,filterDb)
             }
         }
     }
