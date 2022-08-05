@@ -27,7 +27,7 @@ object FilterManager {
         val sBuilderFilter = StringBuilder()
         val tempArray = filter.split("_")
         if (tempArray[0]!="empty"){
-            sBuilderNode.append("county_")
+            sBuilderNode.append("country_")
             sBuilderFilter.append("${tempArray[0]}_")
         }
         if (tempArray[1]!="empty") {

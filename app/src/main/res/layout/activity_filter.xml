@@ -161,11 +161,25 @@
                 android:id="@+id/btDone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:onClick="onClickPublish"
                 android:textColor="@color/white"
                 android:backgroundTint="@color/green_main"
                 android:text="Применить" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btClear"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:padding="5dp"
+                app:elevation="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:layout_gravity="end"
+                android:backgroundTint="@color/green_main"
+                android:theme="@style/FloatingActionButtonTheme"
+                app:srcCompat="@drawable/ic_delete" />
+
         </LinearLayout>
     </ScrollView>
 
