@@ -39,6 +39,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.billingclient:billing-ktx:5.0.0'
+
     implementation 'com.google.android.gms:play-services-ads:21.1.0'
 
     implementation  'io.ak1.pix:piximagepicker:1.6.3'
