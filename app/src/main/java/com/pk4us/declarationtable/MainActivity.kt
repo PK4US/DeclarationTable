@@ -38,6 +38,7 @@ import com.pk4us.declarationtable.databinding.ActivityMainBinding
 import com.pk4us.declarationtable.dialoghelper.DialogConst
 import com.pk4us.declarationtable.dialoghelper.DialogHelper
 import com.pk4us.declarationtable.model.Ad
+import com.pk4us.declarationtable.utils.AppMainState
 import com.pk4us.declarationtable.utils.FilterManager
 import com.pk4us.declarationtable.viewModel.FirebaseViewModel
 import com.squareup.picasso.Picasso
@@ -61,7 +62,9 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
+        (application as AppMainState).showAdIfAvailable(this){
 
+        }
         initAds()
         init()
         initRecyclerView()
