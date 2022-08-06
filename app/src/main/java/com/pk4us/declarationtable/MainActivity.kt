@@ -62,6 +62,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
     private var filterDb:String = ""
     private var pref:SharedPreferences? = null
     private var isPremiumUser = false
+    private var bManager:BillingManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +70,6 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
 
         pref = getSharedPreferences(BillingManager.MAIN_PREF, MODE_PRIVATE)
         isPremiumUser = pref?.getBoolean(BillingManager.REMOVE_ADS_PREF,false)!!
-        isPremiumUser = true
         if(!isPremiumUser){
             (application as AppMainState).showAdIfAvailable(this){}
             initAds()
@@ -184,6 +184,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
     override fun onDestroy() {
         super.onDestroy()
         binding.mainContent.adView2.destroy()
+        bManager?.closeConnection()
     }
 
     private fun initAds() {
@@ -243,6 +244,10 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
             }
             R.id.id_sign_up ->{
                dialogHelper.createSignDialog(DialogConst.SIGN_UP_STATE)
+            }
+            R.id.id_remove_ads ->{
+                bManager = BillingManager(this)
+                bManager?.startConnection()
             }
             R.id.id_sign_in ->{
                 dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)

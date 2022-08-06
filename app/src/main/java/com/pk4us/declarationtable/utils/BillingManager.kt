@@ -25,13 +25,8 @@ class BillingManager(val act:AppCompatActivity) {
 
     fun startConnection(){
         billingClient?.startConnection(object : BillingClientStateListener{
-            override fun onBillingServiceDisconnected() {
-
-            }
-
-            override fun onBillingSetupFinished(p0: BillingResult) {
-                getItem()
-            }
+            override fun onBillingServiceDisconnected() {}
+            override fun onBillingSetupFinished(p0: BillingResult) { getItem() }
         })
     }
 
@@ -76,6 +71,10 @@ class BillingManager(val act:AppCompatActivity) {
                     list?.get(0)?.let {nonConsumableItem(it)  }
             }
         }
+    }
+
+    fun closeConnection(){
+        billingClient?.endConnection()
     }
 
     companion object{
