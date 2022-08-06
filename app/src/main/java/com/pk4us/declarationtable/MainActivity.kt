@@ -2,6 +2,7 @@ package com.pk4us.declarationtable
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -39,6 +40,7 @@ import com.pk4us.declarationtable.dialoghelper.DialogConst
 import com.pk4us.declarationtable.dialoghelper.DialogHelper
 import com.pk4us.declarationtable.model.Ad
 import com.pk4us.declarationtable.utils.AppMainState
+import com.pk4us.declarationtable.utils.BillingManager
 import com.pk4us.declarationtable.utils.FilterManager
 import com.pk4us.declarationtable.viewModel.FirebaseViewModel
 import com.squareup.picasso.Picasso
@@ -58,14 +60,23 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
     private var currentCategory:String? = null
     private var filter:String = "empty"
     private var filterDb:String = ""
+    private var pref:SharedPreferences? = null
+    private var isPremiumUser = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
-        (application as AppMainState).showAdIfAvailable(this){
 
+        pref = getSharedPreferences(BillingManager.MAIN_PREF, MODE_PRIVATE)
+        isPremiumUser = pref?.getBoolean(BillingManager.REMOVE_ADS_PREF,false)!!
+        isPremiumUser = true
+        if(!isPremiumUser){
+            (application as AppMainState).showAdIfAvailable(this){}
+            initAds()
+        }else{
+            binding.mainContent.adView2.visibility = View.GONE
         }
-        initAds()
+
         init()
         initRecyclerView()
         initViewModel()
