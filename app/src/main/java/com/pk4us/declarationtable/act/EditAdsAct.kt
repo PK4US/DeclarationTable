@@ -110,12 +110,7 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
 
     fun onClickPublish(view: View){
         ad = fillAd()
-        if (isEditState){
-             dbManager.publishAd(ad!!,onPublishFinish())
-        }else{
-//            dbManager.publishAd(adTemp,onPublishFinish())
-            uploadImages()
-        }
+        uploadImages()
     }
 
     private fun onPublishFinish():DbManager.FinishWorkListener{
@@ -146,7 +141,7 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
                 ad?.key ?: dbManager.db.push().key,
                 "0",
                 dbManager.auth.uid,
-                ad?.image3 ?: System.currentTimeMillis().toString())
+                ad?.time ?: System.currentTimeMillis().toString())
         }
         return adTemp
     }
@@ -166,16 +161,38 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
         fm.commit()
     }
 
-    private fun uploadImages(){
-        if (adapter.mainArray.size == imageIndex){
-            dbManager.publishAd(ad!!,onPublishFinish())
+    private fun uploadImages() {
+        if (imageIndex == 3) {
+            dbManager.publishAd(ad!!, onPublishFinish())
             return
         }
-        val byteArray = prepareImageByteArray(adapter.mainArray[imageIndex])
-        uploadImage(byteArray){
-            //dbManager.publishAd(ad!!,onPublishFinish())
-            nextImage(it.result.toString())
+        val oldUrl = getUrlFromAd()
+        if (adapter.mainArray.size > imageIndex) {
+            val byteArray = prepareImageByteArray(adapter.mainArray[imageIndex])
+            if (oldUrl.startsWith("http")){
+                updateImage(byteArray,oldUrl){
+                    nextImage(it.result.toString())
+                }
+            }else{
+                uploadImage(byteArray) {
+                    nextImage(it.result.toString())
+                }
+            }
+        }else{
+            if (oldUrl.startsWith("http")){
+                deleteImageByUrl(oldUrl){
+                    nextImage("empty")
+                }
+            }else{
+                nextImage("empty")
+            }
         }
+    }
+
+    private fun nextImage(uri:String){
+        setImageUriToAd(uri)
+        imageIndex++
+        uploadImages()
     }
 
     private fun setImageUriToAd(uri: String){
@@ -186,10 +203,8 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
         }
     }
 
-    private fun nextImage(uri:String){
-        setImageUriToAd(uri)
-        imageIndex++
-        uploadImages()
+    private fun getUrlFromAd():String{
+        return listOf(ad?.mainImage!! ,ad?.image2!! ,ad?.image3!!)[imageIndex]
     }
 
     private fun prepareImageByteArray(bitmap: Bitmap):ByteArray{
@@ -203,6 +218,18 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
         val upTask = imStorageRef.putBytes(byteArray)
         upTask.continueWithTask{
             task -> imStorageRef.downloadUrl
+        }.addOnCompleteListener (listener)
+    }
+
+    private fun deleteImageByUrl(oldUrl:String, listener:OnCompleteListener<Void>){
+        dbManager.dbStorage.storage.getReferenceFromUrl(oldUrl).delete().addOnCompleteListener(listener)
+    }
+
+    private fun updateImage(byteArray: ByteArray, url:String, listener:OnCompleteListener<Uri>){
+        val imStorageRef = dbManager.dbStorage.storage.getReferenceFromUrl(url)
+        val upTask = imStorageRef.putBytes(byteArray)
+        upTask.continueWithTask{
+                task -> imStorageRef.downloadUrl
         }.addOnCompleteListener (listener)
     }
 

@@ -21,10 +21,10 @@ class AdsRcAdapter(val act:MainActivity):RecyclerView.Adapter<AdsRcAdapter.AdHol
     val adArray = ArrayList<Ad>()
     private var timeFormatter:SimpleDateFormat? = null
 
-
     init {
         timeFormatter = SimpleDateFormat("dd/MM/yyyy  hh:mm", Locale.getDefault())
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdHolder {
         val binding = AddListItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return AdHolder(binding,act,timeFormatter!!)
