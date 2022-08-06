@@ -110,14 +110,31 @@ class EditAdsAct : AppCompatActivity(),FragmentCloseInterface {
     }
 
     fun onClickPublish(view: View){
+        if (isFieldsEmpty()){
+            Toast.makeText(this,"Все полня должны быть заполнены",Toast.LENGTH_SHORT).show()
+            return
+        }
+        binding.progressLayout.visibility = View.VISIBLE
         ad = fillAd()
         uploadImages()
     }
 
+    private fun isFieldsEmpty():Boolean = with(binding) {
+        return tvCounty.text.toString() == getString(R.string.select_country)
+                || tvCity.text.toString() == getString(R.string.select_city)
+                || tvCategory.text.toString() == getString(R.string.select_category)
+                || editTitle.text.isEmpty()
+                || etPrice.text.isEmpty()
+                || editIndex.text.isEmpty()
+                || etDescription.text.isEmpty()
+                || editTel.text.isEmpty()
+    }
+
     private fun onPublishFinish():DbManager.FinishWorkListener{
         return object :DbManager.FinishWorkListener{
-            override fun onFinish() {
-                finish()
+            override fun onFinish(isDone:Boolean) {
+                binding.progressLayout.visibility = View.GONE
+                if (isDone) finish()
             }
         }
     }
