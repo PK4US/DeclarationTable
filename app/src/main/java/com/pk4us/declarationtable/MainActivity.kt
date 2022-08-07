@@ -204,6 +204,8 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
                 }
                 R.id.id_favs ->{
                     firebaseViewModel.loadMyFavs()
+                    mainContent.toolbar.title = getString(R.string.my_fav)
+
                 }
                 R.id.id_my_ads ->{
                     firebaseViewModel.loadMyAds()
@@ -228,7 +230,7 @@ class   MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelect
         clearUpdate = true
         when(item.itemId){
             R.id.id_my_ads ->{
-                Toast.makeText(this,"Pressed id_my_ads",Toast.LENGTH_SHORT).show()
+                firebaseViewModel.loadMyAds()
             }
             R.id.id_car ->{
                 getAdsFromCat(getString(R.string.ad_car))

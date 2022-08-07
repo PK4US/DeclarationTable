@@ -51,7 +51,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/black"
                         android:padding="5dp"
-                        android:text="1/3"
+                        android:text="0/3"
                         android:textColor="@color/grey"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
@@ -143,7 +143,6 @@
                         android:onClick="onClickSelectCountry"
                         android:padding="10dp"
                         android:text="@string/select_country"
-                        android:textColor="@color/dark_grey"
                         android:textSize="16sp" />
 
                     <LinearLayout
@@ -173,7 +172,6 @@
                         android:onClick="onClickSelectCity"
                         android:padding="10dp"
                         android:text="@string/select_city"
-                        android:textColor="@color/dark_grey"
                         android:textSize="16sp" />
 
                     <LinearLayout
@@ -377,7 +375,6 @@
                         android:onClick="onClickSelectCategory"
                         android:padding="10dp"
                         android:text="@string/category"
-                        android:textColor="@color/dark_grey"
                         android:textSize="16sp"
                          />
 

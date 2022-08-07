@@ -38,7 +38,6 @@ class AccountHelper(act: MainActivity) {
     }
 
     private fun signUpWithEmailException(e: Exception,email:String, password: String){
-        Log.d("MyLog", "Exception : $e")
         if (e is FirebaseAuthUserCollisionException) {
             if (e.errorCode == FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE) {
                 linkEmailToGoogle(email,password)
