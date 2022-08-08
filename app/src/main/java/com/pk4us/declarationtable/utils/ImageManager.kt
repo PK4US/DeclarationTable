@@ -3,7 +3,6 @@ package com.pk4us.declarationtable.utils
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.media.ExifInterface
 import android.net.Uri
 import android.widget.ImageView
 import com.pk4us.declarationtable.adapters.ImageAdapter
@@ -13,8 +12,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
-import java.io.InputStream
 
 object ImageManager {
     const val MAX_IMAGE_SIZE = 1000

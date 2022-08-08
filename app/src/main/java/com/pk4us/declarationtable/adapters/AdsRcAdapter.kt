@@ -8,14 +8,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.pk4us.declarationtable.MainActivity
 import com.pk4us.declarationtable.R
-import com.pk4us.declarationtable.act.DescriptionActivity
 import com.pk4us.declarationtable.act.EditAdsAct
-import com.pk4us.declarationtable.model.Ad
 import com.pk4us.declarationtable.databinding.AddListItemBinding
+import com.pk4us.declarationtable.model.Ad
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AdsRcAdapter(val act:MainActivity):RecyclerView.Adapter<AdsRcAdapter.AdHolder>() {
     val adArray = ArrayList<Ad>()

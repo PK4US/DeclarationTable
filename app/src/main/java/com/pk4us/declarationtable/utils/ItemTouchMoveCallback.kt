@@ -1,11 +1,9 @@
 package com.pk4us.declarationtable.utils
 
-import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
 class ItemTouchMoveCallback(val adapter:ItemTouchAdapter): ItemTouchHelper.Callback() {
-
 
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
         val dragFlag = ItemTouchHelper.UP or ItemTouchHelper.DOWN

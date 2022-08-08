@@ -63,5 +63,4 @@ object CityHelper {
         return tempList
     }
 
-
 }

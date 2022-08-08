@@ -2,19 +2,14 @@ package com.pk4us.declarationtable.act
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.graphics.Bitmap
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.viewpager2.widget.ViewPager2
-import com.pk4us.declarationtable.R
 import com.pk4us.declarationtable.adapters.ImageAdapter
 import com.pk4us.declarationtable.databinding.ActivityDescriptionBinding
 import com.pk4us.declarationtable.model.Ad
 import com.pk4us.declarationtable.utils.ImageManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class DescriptionActivity : AppCompatActivity() {
     lateinit var binding:ActivityDescriptionBinding
@@ -42,7 +37,6 @@ class DescriptionActivity : AppCompatActivity() {
         getIntentFromMainAct()
         imageChangeCounter()
     }
-
 
     private fun getIntentFromMainAct(){
         ad = intent.getSerializableExtra("AD") as Ad

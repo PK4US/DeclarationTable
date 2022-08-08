@@ -1,11 +1,10 @@
 package com.pk4us.declarationtable.act
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.pk4us.declarationtable.R
 import com.pk4us.declarationtable.databinding.ActivityFilterBinding
 import com.pk4us.declarationtable.dialogs.DialogSpinnerHelper

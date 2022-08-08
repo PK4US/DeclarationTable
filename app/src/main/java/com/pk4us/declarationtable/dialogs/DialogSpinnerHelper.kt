@@ -11,7 +11,6 @@ import com.pk4us.declarationtable.R
 import com.pk4us.declarationtable.utils.CityHelper
 
 class DialogSpinnerHelper {
-
     fun showSpinnerDialog(context: Context, list: ArrayList<String>, tvSelection: TextView) {
         val builder = AlertDialog.Builder(context)
         val dialog = builder.create()

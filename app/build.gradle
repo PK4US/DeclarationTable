@@ -7,6 +7,16 @@ plugins {
 android {
     compileSdk 32
 
+    signingConfigs {
+        release {
+            keyAlias 'Declaration Table keyAlies'
+            keyPassword 'Lpoavien1'
+            storeFile file('D:\\Eugene\\_Programming\\key\\key_1.jks')
+            storePassword 'Lpoavien1'
+        }
+    }
+
+
     defaultConfig {
         applicationId "com.pk4us.declarationtable"
         minSdk 21
@@ -23,8 +33,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

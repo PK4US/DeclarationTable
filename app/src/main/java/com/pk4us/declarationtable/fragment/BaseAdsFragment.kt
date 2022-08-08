@@ -12,7 +12,6 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.pk4us.declarationtable.R
 import com.pk4us.declarationtable.utils.BillingManager
 
-
 open class BaseAdsFragment : Fragment(),InterAdsClose{
     lateinit var adView: AdView
     var interAdd: InterstitialAd? = null

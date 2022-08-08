@@ -21,7 +21,6 @@ object FilterManager {
             "${ad.withSent}_${ad.time}",
         )
     }
-
     fun getFilter(filter: String):String{
         val sBuilderNode = StringBuilder()
         val sBuilderFilter = StringBuilder()

@@ -1,6 +1,5 @@
 package com.pk4us.declarationtable.accountHelper
 
-import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -9,8 +8,6 @@ import com.google.firebase.auth.*
 import com.pk4us.declarationtable.MainActivity
 import com.pk4us.declarationtable.R
 import com.pk4us.declarationtable.constants.FirebaseAuthConstants
-import com.pk4us.declarationtable.dialoghelper.GoogleAccConst
-import java.lang.Exception
 
 class AccountHelper(act: MainActivity) {
     val act = act
@@ -20,11 +17,11 @@ class AccountHelper(act: MainActivity) {
         if (email.isNotEmpty() && password.isNotEmpty()) {
             act.myAuth.currentUser?.delete()?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    act.myAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            signUpWithEmailSuccessful(task.result.user!!)
+                    act.myAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task2 ->
+                        if (task2.isSuccessful) {
+                            signUpWithEmailSuccessful(task2.result.user!!)
                         } else {
-                            signUpWithEmailException(task.exception!!, email, password)
+                            signUpWithEmailException(task2.exception!!, email, password)
                         }
                     }
                 }
@@ -114,10 +111,10 @@ class AccountHelper(act: MainActivity) {
         val credential = GoogleAuthProvider.getCredential(token, null)
         act.myAuth.currentUser?.delete()?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                act.myAuth.signInWithCredential(credential).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
+                act.myAuth.signInWithCredential(credential).addOnCompleteListener { task2 ->
+                    if (task2.isSuccessful) {
                         Toast.makeText(act, "Упешно зарегестировались через Google", Toast.LENGTH_SHORT).show()
-                        act.uiUpdate(task.result?.user)
+                        act.uiUpdate(task2.result?.user)
                     }else{
                         Toast.makeText(act, "Ошибка авторизации через Google", Toast.LENGTH_SHORT).show()
                     }
