@@ -7,6 +7,10 @@ plugins {
 android {
     compileSdk 32
 
+    lintOptions {
+        abortOnError false
+    }
+
     signingConfigs {
         release {
             keyAlias 'Declaration Table keyAlies'
@@ -21,8 +25,8 @@ android {
         applicationId "com.pk4us.declarationtable"
         minSdk 21
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
